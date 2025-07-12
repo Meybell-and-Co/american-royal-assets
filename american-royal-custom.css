@@ -99,7 +99,6 @@ h1, h2, h3, h4,
 .header-nav-folder-content a,
 .header-nav-folder-content span {
   font-family: 'Veneer', sans-serif !important;
-  color: #89211B !important;
   font-size: 2rem;
   letter-spacing: 0.02em;
   transform-origin: top center;
@@ -273,4 +272,58 @@ footer li {
 footer h4,
 footer p {
   margin-bottom: 0.3em !important;
+}
+/* =============================== */
+/* 2025-07 NAVIGATION STATE STYLES */
+/* =============================== */
+
+/* 🔺 TOP-LEVEL NAV: inactive = Polar, active = red + brush */
+.header-nav-folder-title-text {
+  color: #F7F6FB !important; /* AR Polar */
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text {
+  position: relative;
+  color: #BE3526 !important; /* AR Red */
+  z-index: 2;
+}
+
+.header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%;
+  height: 18px;
+  background-image: url('https://meybell-and-co.github.io/american-royal-css/red-streak.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 🔻 SUBNAV: Always blue, no active effect */
+.header-nav-folder-item .header-nav-folder-item-content,
+.header-nav-folder-item a,
+.header-nav-folder-item a span {
+  color: #002D6A !important; /* AR Blue */
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* 🔒 Nuke stray decoration on top nav */
+.header-nav-item--active,
+.header-nav-item--active *,
+.header-nav-folder-title[aria-current="page"],
+.header-nav-folder-title[aria-current="page"] * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
