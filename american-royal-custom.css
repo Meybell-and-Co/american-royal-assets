@@ -2,24 +2,6 @@
 /* MEYBELL & CO. CUSTOM STYLING - American Royal Web CSS */
 /* ===================================================== */
 
-/* TOC: What this file impacts & why it matters
-------------------------------------------------------
-This stylesheet enhances the branding and UX of the American Royal site. 
-It overrides Squarespace defaults to deliver a polished experience, 
-emphasizing clean typography, animated nav, and a dramatic hero header.
-
-1. Load Veneer Font .......................... Custom brand font
-2. Keyframe Animations ....................... Smooth entry effects
-3. Dropdown Staggered Animation .............. Animated nav reveal
-4. Typography: Headers & Navigation .......... Unified typographic identity
-5. Header Background Styling ................. Custom hero image & layout
-6. Layout Adjustments ........................ Full-width container fixes
-7. Logo Alignment ............................ Centered brand presentation
-8. CONTRIBUTE Button Styling ................. CTA-specific design
-9. Divider Styling ........................... Clean horizontal rules
-10. Footer Styling Cleanup ................... Accessibility + design polish
------------------------------------------------------- */
-
 /* =============================== */
 /* Load Veneer Font */
 /* =============================== */
@@ -34,25 +16,13 @@ emphasizing clean typography, animated nav, and a dramatic hero header.
 /* Keyframe Animations */
 /* =============================== */
 @keyframes slideDownFade {
-  0% {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slideFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =============================== */
@@ -82,7 +52,7 @@ h1, h2, h3, h4,
 .header-nav a,
 .header-nav-folder-title {
   font-family: 'Veneer', sans-serif !important;
-  color: rgba(247, 246, 251, 1) !important;
+  color: #F7F6FB !important;
   text-transform: uppercase;
   font-size: 2rem;
   font-weight: 600;
@@ -273,13 +243,14 @@ footer h4,
 footer p {
   margin-bottom: 0.3em !important;
 }
+
 /* =============================== */
-/* 2025-07 NAVIGATION STATE STYLES */
+/* Navigation Styles - v3 Update */
 /* =============================== */
 
-/* 🔺 TOP-LEVEL NAV: inactive = Polar, active = red + brush */
+/* Top-level navigation: default polar white, active state highlighted with red brush stroke */
 .header-nav-folder-title-text {
-  color: #F7F6FB !important; /* AR Polar */
+  color: #F7F6FB !important;
   text-decoration: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
@@ -287,7 +258,7 @@ footer p {
 
 .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text {
   position: relative;
-  color: #BE3526 !important; /* AR Red */
+  color: #BE3526 !important;
   z-index: 2;
 }
 
@@ -307,18 +278,18 @@ footer p {
   pointer-events: none;
 }
 
-/* 🔻 SUBNAV: Always blue, no active effect */
+/* Subnavigation: always blue (AR Blue), no hover or active state styling */
 .header-nav-folder-item .header-nav-folder-item-content,
 .header-nav-folder-item a,
 .header-nav-folder-item a span {
-  color: #002D6A !important; /* AR Blue */
+  color: #002D6A !important;
   text-decoration: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
   opacity: 1 !important;
 }
 
-/* 🔒 Nuke stray decoration on top nav */
+/* Top-level nav override: remove all default text decoration and border styling */
 .header-nav-item--active,
 .header-nav-item--active *,
 .header-nav-folder-title[aria-current="page"],
