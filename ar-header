@@ -1,0 +1,121 @@
+/* ===========================================
+   AMERICAN ROYAL • Header UI (namespaced)
+   Requires: <link rel="preconnect" href="https://fonts.googleapis.com"> + Outfit
+   Wrapper: Add class="ar-header" to the header container
+   =========================================== */
+
+/* Tokens */
+:root{
+  --ar-navy:#002D6A;
+  --ar-sky:#92B8E2;
+  --ar-offwhite:#F7F6FB;
+  --ar-cta:#BE3526;
+  --ar-fg:#ffffff;
+}
+
+/* Skin */
+.ar-header{
+  background:var(--ar-navy);
+  color:var(--ar-fg);
+  position:relative;
+}
+.ar-header::after{
+  content:"";
+  display:block;
+  height:4px;                /* thickness of the single blue bar */
+  background:var(--ar-navy); /* solid; switch to gradient if desired */
+}
+
+/* Type */
+.ar-header .header-nav a,
+.ar-header .header-nav-folder-title,
+.ar-header .header-nav-folder-title-text{
+  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:500;
+  color:var(--ar-fg);
+  letter-spacing:.01em;
+  line-height:1.2;
+  text-decoration:none;
+}
+.ar-header .header-nav a:hover,
+.ar-header .header-nav a:focus,
+.ar-header .header-nav-folder-title:hover,
+.ar-header .header-nav-folder-title:focus{
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Active state (no red, keep clarity) */
+.ar-header .header-nav-item--active > a,
+.ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
+  font-weight:600;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Icons inherit white (works best with SVGs) */
+.ar-header .header-nav svg,
+.ar-header .header-nav .icon{
+  color:var(--ar-fg);
+  fill:currentColor;
+}
+
+/* Logo sizing */
+.ar-header .header-title-logo{ display:flex; align-items:center; justify-content:center; padding-top:1rem; }
+.ar-header .header-title-logo img{ display:block; height:auto; max-height:120px; margin-top:16px; }
+@media (max-width:768px){
+  .ar-header .header-title-logo img{ max-height:80px; margin-top:8px; }
+}
+
+/* CTA: Contribute */
+.ar-header .header-nav-item a[href*="contribute"]{
+  background:var(--ar-cta);
+  color:#fff;
+  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:600;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  padding:.6em 1.1em;
+  border-radius:4px;
+  min-height:44px;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.ar-header .header-nav-item a[href*="contribute"]:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(0,0,0,.18);
+}
+.ar-header .header-nav-item a[href*="contribute"]:focus{
+  outline:2px solid #fff; outline-offset:2px;
+}
+
+/* Submenu color:
+   If your dropdown panel is light → navy text; if it overlays the navy header, swap to white. */
+.ar-header .header-nav-folder-item .header-nav-folder-item-content,
+.ar-header .header-nav-folder-item a,
+.ar-header .header-nav-folder-item a span{
+  color:var(--ar-navy);
+}
+/* Alternate (comment in if submenu sits over dark header)
+.ar-header .header-nav-folder-item .header-nav-folder-item-content,
+.ar-header .header-nav-folder-item a,
+.ar-header .header-nav-folder-item a span{ color:#fff; }
+*/
+
+/* Dropdown reveal animation (scoped) */
+@keyframes ar-slideFadeIn{ from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+.ar-header .header-nav-folder-content > .header-nav-folder-item{ animation:ar-slideFadeIn .4s ease forwards; opacity:0; }
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(1){animation-delay:.1s}
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(2){animation-delay:.2s}
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(3){animation-delay:.3s}
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(4){animation-delay:.4s}
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(5){animation-delay:.5s}
+.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(6){animation-delay:.6s}
+
+/* Safety: neutralize any legacy streaks inside header only */
+.ar-header .header-streak,
+.ar-header .header-accent,
+.ar-header .site-header .accent-bar{ display:none !important; height:0 !important; }
+.ar-header .Header::before,
+.ar-header .Header::after{ content:none !important; background:none !important; box-shadow:none !important; border:0 !important; }
