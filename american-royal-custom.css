@@ -10,6 +10,28 @@
   src: url('https://raw.githubusercontent.com/Meybell-and-Co/american-royal-css/b1f7a7cb9614352757413355b4660ea86dbb8d25/Veneer.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
+}
+
+/* =============================== */
+/* Keep Outfit as Body Text */
+/* =============================== */
+body {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* =============================== */
+/* Use Veneer for All Headings */
+/* =============================== */
+:root { --heading-font: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+h1, h2, h3, h4, h5, h6,
+.sqs-block-heading h1, .sqs-block-heading h2, .sqs-block-heading h3,
+.page-title, .collection-title,
+.section-title, .sqs-announcement-bar-content h1,
+.sqs-featured-posts .post-title,
+.sqs-dynamic-text h1 {
+  font-family: var(--heading-font) !important;
 }
 
 /* =============================== */
