@@ -41,51 +41,6 @@
 .header-nav-folder-content > .header-nav-folder-item:nth-child(6) { animation-delay: 0.6s; }
 
 /* =============================== */
-/* Typography: Headers & Navigation */
-/* =============================== */
-h1, h2, h3, h4,
-.sqs-block-title,
-.Header-title,
-.SectionTitle,
-.header-nav-folder-title-text,
-.header-nav-item > a,
-.header-nav a,
-.header-nav-folder-title {
-  font-family: 'Veneer', sans-serif !important;
-  color: #F7F6FB !important;
-  text-transform: uppercase;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.5em;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-nav-folder-item-content,
-.header-nav-folder-content a,
-.header-nav-folder-content span {
-  font-family: 'Veneer', sans-serif !important;
-  font-size: 2rem;
-  letter-spacing: 0.02em;
-  transform-origin: top center;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-nav a:hover,
-.header-nav-folder-title:hover,
-.header-nav-folder-title-text:hover,
-.header-nav-folder-item-content:hover {
-  opacity: 0.85;
-}
-
-/* =============================== */
 /* Header Background Styling */
 /* =============================== */
 .header-inner {
@@ -242,59 +197,4 @@ footer li {
 footer h4,
 footer p {
   margin-bottom: 0.3em !important;
-}
-
-/* =============================== */
-/* Navigation Styles - v3 Update */
-/* =============================== */
-
-/* Top-level navigation: default polar white, active state highlighted with red brush stroke */
-.header-nav-folder-title-text {
-  color: #F7F6FB !important;
-  text-decoration: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
-
-.header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text {
-  position: relative;
-  color: #BE3526 !important;
-  z-index: 2;
-}
-
-.header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text::before {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110%;
-  height: 18px;
-  background-image: url('https://meybell-and-co.github.io/american-royal-css/red-streak.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Subnavigation: always blue (AR Blue), no hover or active state styling */
-.header-nav-folder-item .header-nav-folder-item-content,
-.header-nav-folder-item a,
-.header-nav-folder-item a span {
-  color: #002D6A !important;
-  text-decoration: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-  opacity: 1 !important;
-}
-
-/* Top-level nav override: remove all default text decoration and border styling */
-.header-nav-item--active,
-.header-nav-item--active *,
-.header-nav-folder-title[aria-current="page"],
-.header-nav-folder-title[aria-current="page"] * {
-  text-decoration: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
 }
