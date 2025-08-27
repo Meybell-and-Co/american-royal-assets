@@ -13,26 +13,32 @@
   font-display: swap;
 }
 
-/* =============================== */
-/* Keep Outfit as Body Text */
-/* =============================== */
-body {
-  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/* Desktop Headers = Off-white */
+@media screen and (min-width: 769px) {
+  h1, h2, h3, h4, h5, h6,
+  .sqs-block-heading h1, .sqs-block-heading h2, .sqs-block-heading h3,
+  .page-title, .collection-title,
+  .section-title, .sqs-announcement-bar-content h1,
+  .sqs-featured-posts .post-title,
+  .sqs-dynamic-text h1 {
+    font-family: var(--heading-font) !important;
+    color: #F7F6FB !important; /* off-white */
+  }
 }
 
-/* =============================== */
-/* Use Veneer for All Headings */
-/* =============================== */
-:root { --heading-font: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-
-h1, h2, h3, h4, h5, h6,
-.sqs-block-heading h1, .sqs-block-heading h2, .sqs-block-heading h3,
-.page-title, .collection-title,
-.section-title, .sqs-announcement-bar-content h1,
-.sqs-featured-posts .post-title,
-.sqs-dynamic-text h1 {
-  font-family: var(--heading-font) !important;
+/* Mobile Headers = Navy */
+@media screen and (max-width: 768px) {
+  h1, h2, h3, h4, h5, h6,
+  .sqs-block-heading h1, .sqs-block-heading h2, .sqs-block-heading h3,
+  .page-title, .collection-title,
+  .section-title, .sqs-announcement-bar-content h1,
+  .sqs-featured-posts .post-title,
+  .sqs-dynamic-text h1 {
+    font-family: var(--heading-font) !important;
+    color: #002D6A !important; /* navy */
+  }
 }
+
 
 /* =============================== */
 /* Keyframe Animations */
