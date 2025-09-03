@@ -1,111 +1,127 @@
+// @ts-check
 document.addEventListener("DOMContentLoaded", () => {
-  const scroller = document.querySelector(".timeline-content");
-  const allItems = Array.from(document.querySelectorAll(".timeline-item"));
- // Gather only real items (no buffer)
-const allItems = Array.from(document.querySelectorAll(".timeline-item"));
-const realItems = allItems.filter(item => !item.classList.contains('timeline-buffer'));
-const numRealItems = realItems.length;
+  try {
+    /** @type {HTMLElement|null} */
+    const block = document.querySelector(".timeline-desktop.timeline-loaded-fade");
+    if (!block) return;
 
-// Generate dots for real cards only
-dotsContainer.innerHTML = "";
-realItems.forEach(() => {
-  const dot = document.createElement("div");
-  dot.className = "timeline-dot";
-  dotsContainer.appendChild(dot);
-});
-const dots = dotsContainer.querySelectorAll(".timeline-dot");
+    // Ensure it's visible even if animations fail
+    block.style.opacity = "1";
 
-  function updateNav(idx) {
-    dots.forEach((dot, i) => dot.classList.toggle("active", i === idx));
-    if (barFill) barFill.style.width = ((idx) / (numRealItems - 1)) * 100 + "%";
-    leftArrow.setAttribute("aria-disabled", idx === 0 ? "true" : "false");
-    rightArrow.setAttribute("aria-disabled", idx === numRealItems - 1 ? "true" : "false");
-    realCurrentIndex = idx;
-  }
+    // Don’t run the interactions on narrow screens
+    if (window.innerWidth <= 900) return;
 
-  function scrollToRealItem(idx, smooth = true) {
-    const item = allItems[idx + 1]; // +1 for left buffer
-    if (!item) return;
-    const scrollerRect = scroller.getBoundingClientRect();
-    const itemRect = item.getBoundingClientRect();
-    const scrollLeft =
-      item.offsetLeft
-      - scroller.offsetLeft
-      - (scrollerRect.width / 2)
-      + (itemRect.width / 2);
+    /** @type {HTMLElement|null} */
+    const scroller = document.querySelector(".timeline-content");
+    /** @type {HTMLElement[]} */
+    const allItems = Array.from(document.querySelectorAll(".timeline-item"));
+    const realItems = allItems.filter(i => !i.classList.contains("timeline-buffer"));
 
-    scroller.scrollTo({
-      left: scrollLeft,
-      behavior: smooth ? "smooth" : "auto",
+    /** @type {HTMLButtonElement|null} */
+    const leftArrow  = document.querySelector(".timeline-arrow-left");
+    /** @type {HTMLButtonElement|null} */
+    const rightArrow = document.querySelector(".timeline-arrow-right");
+    /** @type {HTMLElement|null} */
+    const barFill    = document.querySelector(".timeline-progress-bar-fill");
+    /** @type {HTMLElement|null} */
+    const dotsWrap   = document.querySelector(".timeline-dots");
+
+    if (!scroller || !leftArrow || !rightArrow || !dotsWrap || realItems.length === 0) return;
+
+    // Build dots (one per real card)
+    dotsWrap.innerHTML = "";
+    realItems.forEach(() => {
+      const dot = document.createElement("div");
+      dot.className = "timeline-dot";
+      dotsWrap.appendChild(dot);
     });
-    updateNav(idx);
-  }
+    /** @type {NodeListOf<HTMLElement>} */
+    const dots = dotsWrap.querySelectorAll(".timeline-dot");
 
-  dots.forEach((dot, idx) => {
-    dot.addEventListener("click", () => scrollToRealItem(idx));
-  });
-
-  leftArrow.addEventListener("click", () => {
-    if (realCurrentIndex > 0) scrollToRealItem(realCurrentIndex - 1);
-  });
-  rightArrow.addEventListener("click", () => {
-    if (realCurrentIndex < numRealItems - 1) scrollToRealItem(realCurrentIndex + 1);
-  });
-
-  // Arrow bop animation
-  document.querySelectorAll(".timeline-arrow").forEach(arrow => {
-    arrow.addEventListener("click", function () {
-      arrow.classList.remove("bopping");
-      void arrow.offsetWidth;
-      arrow.classList.add("bopping");
-    });
-  });
-
-  // Keyboard navigation
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowRight") rightArrow.click();
-    if (e.key === "ArrowLeft") leftArrow.click();
-  });
-
-  // Optional: Sync nav on scroll (for swipe/drag)
-  scroller.addEventListener("scroll", function () {
     let idx = 0;
-    for (let i = 0; i < numRealItems; i++) {
-      const item = allItems[i + 1];
-      if (scroller.scrollLeft >= item.offsetLeft - scroller.offsetLeft - 10) {
-        idx = i;
+
+    /**
+     * @param {number} nextIdx
+     */
+    function updateUI(nextIdx) {
+      dots.forEach((d, i) => d.classList.toggle("active", i === nextIdx));
+      if (barFill && realItems.length > 1) {
+        barFill.style.width = String((nextIdx / (realItems.length - 1)) * 100) + "%";
       }
+      leftArrow.setAttribute("aria-disabled", nextIdx === 0 ? "true" : "false");
+      rightArrow.setAttribute("aria-disabled", nextIdx === realItems.length - 1 ? "true" : "false");
+      idx = nextIdx;
     }
-    updateNav(idx);
-  });
 
-  // Fade edges
-  function updateGradientEdges() {
-    scroller.classList.toggle('at-start', scroller.scrollLeft === 0);
-    scroller.classList.toggle(
-      'at-end',
-      Math.ceil(scroller.scrollLeft + scroller.offsetWidth) >= scroller.scrollWidth
-    );
-  }
-  scroller.addEventListener('scroll', updateGradientEdges);
-  updateGradientEdges();
+    /**
+     * @param {number} nextIdx
+     * @param {boolean} [smooth=true]
+     */
+    function scrollToIdx(nextIdx, smooth = true) {
+      const item = allItems[nextIdx + 1]; // +1 accounts for left buffer
+      if (!item) return;
+      const scrollerRect = scroller.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+      const left =
+        item.offsetLeft - scroller.offsetLeft - (scrollerRect.width / 2) + (itemRect.width / 2);
+      scroller.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+      updateUI(nextIdx);
+    }
 
-  // Dynamic arrow sizing (25% of card height)
-  function setArrowHeight() {
-    var card = realItems[0];
-    var arrows = document.querySelectorAll(".timeline-arrow");
-    if (card) {
-      var cardHeight = card.offsetHeight;
-      var arrowHeight = Math.round(cardHeight * 0.25);
-      arrows.forEach(function (arrow) {
-        arrow.style.height = arrowHeight + "px";
-        arrow.style.width = arrowHeight + "px";
+    dots.forEach((d, i) => d.addEventListener("click", () => scrollToIdx(i)));
+    leftArrow.addEventListener("click", () => { if (idx > 0) scrollToIdx(idx - 1); });
+    rightArrow.addEventListener("click", () => { if (idx < realItems.length - 1) scrollToIdx(idx + 1); });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft")  leftArrow.click();
+      if (e.key === "ArrowRight") rightArrow.click();
+    });
+
+    scroller.addEventListener("scroll", () => {
+      // Snap active dot to nearest card center
+      let best = 0, min = Infinity;
+      for (let i = 0; i < realItems.length; i++) {
+        const item = allItems[i + 1];
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        const viewCenter = scroller.scrollLeft + scroller.offsetWidth / 2;
+        const diff = Math.abs(viewCenter - itemCenter);
+        if (diff < min) { min = diff; best = i; }
+      }
+      updateUI(best);
+    });
+
+    function sizeArrows() {
+      const card = realItems[0];
+      if (!card) return;
+      const h = Math.round(card.offsetHeight * 0.25);
+      document.querySelectorAll(".timeline-arrow").forEach(a => {
+        /** @type {HTMLElement} */(a).style.height = h + "px";
+        /** @type {HTMLElement} */(a).style.width  = h + "px";
       });
     }
-  }
-  window.addEventListener("resize", setArrowHeight);
-  setArrowHeight();
+    window.addEventListener("resize", sizeArrows);
+    sizeArrows();
 
-  // Initialize: center first real card
-  setTimeout(() => { scrollToRealItem(0, false); }, 50); // Small delay helps for rendering
+    // Initial position + fade-in
+    setTimeout(() => { scrollToIdx(0, false); }, 20);
+    setTimeout(() => { block.classList.add("timeline-show"); }, 150);
+
+    // Fun bop on click
+    document.querySelectorAll(".timeline-arrow").forEach(el => {
+      const arrow = /** @type {HTMLElement} */(el);
+      arrow.addEventListener("click", () => {
+        arrow.classList.remove("bopping-left", "bopping-right");
+        void arrow.offsetWidth; // reflow
+        arrow.classList.add(arrow.classList.contains("timeline-arrow-left") ? "bopping-left" : "bopping-right");
+      });
+      arrow.addEventListener("animationend", () => {
+        arrow.classList.remove("bopping-left", "bopping-right");
+      });
+    });
+
+  } catch (e) {
+    const fallback = document.querySelector(".timeline-desktop.timeline-loaded-fade");
+    if (fallback) /** @type {HTMLElement} */(fallback).style.opacity = "1";
+    console.warn("Timeline init failed:", e);
+  }
 });
