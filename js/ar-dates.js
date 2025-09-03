@@ -1,6 +1,4 @@
-// ar-dates.js
-// Formats and applies published dates from meta tags to <time> elements.
-
+// @ts-check
 document.addEventListener("DOMContentLoaded", () => {
   /** @type {HTMLMetaElement|null} */
   const metaDate = document.querySelector('meta[itemprop="datePublished"]');
@@ -11,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const rawDate = metaDate.getAttribute("content") || "";
   const fixedDate = new Date(rawDate);
-
   if (Number.isNaN(fixedDate.getTime())) {
     console.warn("Invalid publish date:", rawDate);
     return;
@@ -23,9 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     day: "numeric"
   });
 
-  /** @type {NodeListOf<HTMLTimeElement>} */
-  const times = document.querySelectorAll("time.dt-published");
-  times.forEach((el) => {
+  document.querySelectorAll("time.dt-published").forEach((el) => {
     el.textContent = formatted;
     el.setAttribute("datetime", fixedDate.toISOString());
   });
