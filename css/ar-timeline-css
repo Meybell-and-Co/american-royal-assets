@@ -1,0 +1,122 @@
+/* === American Royal Timeline CSS === */
+
+:root {
+  --ar-navy: #002D6A;
+  --ar-light-blue: #92B8E2;
+  --ar-off-white: #F7F6FB;
+  --ar-accent: #BE3526;
+  --dot-size: 12px;
+  --active-dot-color: var(--ar-navy);
+  --inactive-dot-color: #ccc;
+  --progress-height: 4px;
+}
+
+.timeline-progress-wrapper {
+  position: relative;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 900px;
+}
+
+.timeline-progress-bar-bg {
+  position: relative;
+  height: var(--progress-height);
+  background-color: var(--inactive-dot-color);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.timeline-progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--progress-height);
+  width: 0%;
+  background-color: var(--ar-navy);
+  transition: width 0.4s ease-in-out;
+}
+
+.timeline-progress-dots {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  padding: 0 8px;
+  z-index: 2;
+}
+
+.timeline-dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background-color: var(--inactive-dot-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.timeline-dot.active {
+  background-color: var(--active-dot-color);
+}
+
+.timeline-card {
+  background: linear-gradient(145deg, #002d6a, #184675);
+  color: var(--ar-off-white);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 300px;
+  flex: 0 0 auto;
+  margin-right: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-family: var(--font-p1, sans-serif);
+}
+
+.timeline-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+}
+
+.timeline-container::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-month {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--ar-light-blue);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-p1, sans-serif);
+}
+
+.timeline-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-description {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  font-family: var(--font-p1, sans-serif);
+}
+
+/* Optional button styling if used */
+.timeline-card button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--ar-off-white);
+  color: var(--ar-navy);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.timeline-card button:hover {
+  background: var(--ar-light-blue);
+  color: #fff;
+}
