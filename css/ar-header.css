@@ -30,8 +30,8 @@
 .ar-header .header-nav a,
 .ar-header .header-nav-folder-title,
 .ar-header .header-nav-folder-title-text{
-  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  font-weight:500;
+  font-family:"Veneer",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:normal;
   color:var(--ar-fg);
   letter-spacing:.01em;
   line-height:1.2;
