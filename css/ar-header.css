@@ -188,3 +188,29 @@
     flex-wrap:nowrap;
   }
 }
+
+/* Creates full-bleed header image */
+.ar-header .header-inner{
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  min-height: clamp(260px, 32vw, 520px); /* responsive height */
+}
+
+/* Break out of the content max-width and bleed edge-to-edge on big screens */
+@media (min-width:1025px){
+  .ar-header .header-inner{
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile guardrails */
+@media (max-width:1024px){
+  .ar-header .header-inner{
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+}
