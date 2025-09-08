@@ -165,6 +165,7 @@
   .ar-header .header-nav-list {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: clamp(12px, 2.2vw, 36px);
     row-gap: 0;
     flex-wrap: nowrap;
@@ -211,7 +212,7 @@
     position:absolute; left:0; right:0; bottom:0;
     height: clamp(60px, 5.5vw, 120px);           /* bar height; tweak to taste */
     background: var(--ar-navy);
-    opacity: 0.92;
+    opacity: 1.0;
     pointer-events: none;
     z-index: 1;                                 /* BELOW nav */
   }
