@@ -214,14 +214,3 @@
     transform: none;
   }
 }
-  
-  /* DEBUG — outline likely header-image holders */
-.ar-header [style*="background-image"],
-.ar-header .header-inner,
-.ar-header .header-background,
-.ar-header .Header-background,
-.ar-header .header-image,
-.ar-header .Header-image,
-.ar-header img {
-  outline: 2px solid lime !important;
-}
