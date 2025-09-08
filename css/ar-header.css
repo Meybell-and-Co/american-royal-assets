@@ -285,5 +285,34 @@
   text-decoration: none !important;
 }
 
-/* Removes any legacy stripe */
-.ar-header::after { content: none !important; height: 0 !important; }
+/* —— Remove any legacy thin stripe/border at the header bottom —— */
+
+/* 1) Remove any old pseudo-element stripe */
+.ar-header::after,
+.ar-header .header::after,
+.ar-header .Header::after {
+  content: none !important;
+  height: 0 !important;
+}
+
+/* 2) Remove bottom borders/shadows that can masquerade as a line */
+.ar-header,
+.ar-header .header,
+.ar-header .header-inner,
+.ar-header .header-title-nav-wrapper,
+.ar-header .header-nav-wrapper,
+.ar-header nav.header-nav {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 3) Ensure the first section doesn't draw a top border */
+.ar-header ~ main#page .sections > .page-section:first-of-type {
+  border-top: 0 !important;
+}
+
+/* 4) Keep the dropdown panel above everything just in case */
+.ar-header .header-nav-folder-content {
+  position: relative;
+  z-index: 50;
+}
