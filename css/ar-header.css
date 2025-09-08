@@ -284,62 +284,40 @@
 .ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
   text-decoration: none !important;
 }
-
-/* —— Remove any legacy thin stripe/border at the header bottom —— */
-
-/* 1) Remove any old pseudo-element stripe */
-.ar-header::after,
-.ar-header .header::after,
-.ar-header .Header::after {
-  content: none !important;
-  height: 0 !important;
-}
-
-/* 2) Remove bottom borders/shadows that can masquerade as a line */
-.ar-header,
-.ar-header .header,
-.ar-header .header-inner,
-.ar-header .header-title-nav-wrapper,
-.ar-header .header-nav-wrapper,
-.ar-header nav.header-nav {
-  border-bottom: 0 !important;
-  box-shadow: none !important;
-}
-
-/* 3) Ensure the first section doesn't draw a top border */
-.ar-header ~ main#page .sections > .page-section:first-of-type {
-  border-top: 0 !important;
-}
-
-/* 4) Keep the dropdown panel above everything just in case */
-.ar-header .header-nav-folder-content {
-  position: relative;
-  z-index: 50;
-}
-/* 1) Seal any 1px seam between header and first section */
+/* === Always-on-top submenu (desktop) === */
 @media (min-width:1025px){
-  .ar-header .header-inner{ position: relative; } /* already set, harmless */
-  .ar-header .header-inner::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:-1px;
-    height:1px; background: var(--ar-navy);
-    pointer-events:none;
-    z-index: 5; /* below nav (20) and submenu (50), above the image */
+  /* make sure no ancestor clips the panel */
+  .ar-header,
+  .ar-header .header,
+  .ar-header .header-inner,
+  .ar-header .header-nav-wrapper,
+  .ar-header .header-nav { overflow: visible !important; }
+
+  /* baseline layers you already use */
+  .ar-header .header-inner{ position: relative; z-index: 0; }        /* image layer */
+  .ar-header .header-inner::before{ z-index: 1; pointer-events:none; }/* navy band */
+  .ar-header .header-title,
+  .ar-header .header-actions,
+  .ar-header nav.header-nav{ position: relative; z-index: 20; }       /* nav/brand */
+
+  /* put the dropdown panel way above everything */
+  .ar-header .header-nav-folder-content{
+    position: absolute;   /* required for z-index to stack over siblings */
+    z-index: 1000 !important;
+    background: var(--ar-navy) !important; /* your solid navy backdrop */
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* submenu links inherit the panel’s layer; keep them clickable */
+  .ar-header .header-nav-folder-item,
+  .ar-header .header-nav-folder-item a{
+    position: relative; z-index: inherit;
+    color: var(--ar-offwhite) !important;
   }
 }
 
-/* 2) Ensure no top divider sits on the first section */
-.ar-header ~ main#page .sections > .page-section:first-of-type {
-  border-top: 0 !important;
-  box-shadow: none !important;
-}
-.ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
-  display:none !important; height:0 !important; margin:0 !important;
-}
-
-/* 3) Belt-and-suspenders: kill any legacy thin stripe pseudo-elements */
+/* belt & suspenders: any rogue thin stripe cannot sit above the panel */
 .ar-header::after,
 .ar-header .header::after,
-.ar-header .Header::after{
-  content:none !important; height:0 !important;
-}
+.ar-header .Header::after{ content:none !important; height:0 !important; }
