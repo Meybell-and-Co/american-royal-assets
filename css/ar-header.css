@@ -209,7 +209,7 @@
   .ar-header .header-inner::before{
     content:"";
     position:absolute; left:0; right:0; bottom:0;
-    height: clamp(44px, 5.5vw, 72px);           /* bar height; tweak to taste */
+    height: clamp(60px, 5.5vw, 120px);           /* bar height; tweak to taste */
     background: var(--ar-navy);
     opacity: 0.92;
     pointer-events: none;
