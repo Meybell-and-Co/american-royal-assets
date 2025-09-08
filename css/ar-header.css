@@ -98,6 +98,15 @@
   }
 }
 
+@media (min-width: 1025px) {
+  .ar-header .header-title-nav-wrapper,
+  .ar-header .header-nav-wrapper {
+    max-width: 1400px;              /* widen the lane a bit */
+    margin-inline: auto;
+    padding-inline: clamp(12px, 2vw, 32px);
+  }
+}
+
 /* Icons inherit white (works best with SVGs) */
 .ar-header .header-nav svg,
 .ar-header .header-nav .icon{
