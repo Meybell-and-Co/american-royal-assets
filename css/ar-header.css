@@ -71,27 +71,6 @@
   text-underline-offset:2px;
 }
 
-/* Desktop nav spacing */
-@media (min-width: 1025px) {
-  .ar-header .header-nav-wrapper { 
-    flex: 1 1 auto;                 /* let nav use space */
-  }
-  .ar-header .header-nav { 
-    display: flex; 
-    justify-content: center;        /* keep it centered */
-  }
-  .ar-header .header-nav-list { 
-    display: flex; 
-    gap: clamp(12px, 2.2vw, 36px);  /* horizontal space between items */
-    row-gap: 0; 
-    flex-wrap: nowrap; 
-  }
-  .ar-header .header-nav-item { 
-    margin: 0;                      /* reset any theme margins */
-    white-space: nowrap;            /* keep labels on one line */
-  }
-}
-
 @media (min-width: 1025px) {
   .ar-header .header-title-nav-wrapper,
   .ar-header .header-nav-wrapper {
@@ -171,15 +150,29 @@
 /* Ensures the navigation menu stays centered within header */
 @media (min-width:1025px){
   .ar-header .header-title,
-  .ar-header .header-actions { flex: 0 0 auto; }     /* fixed edges */
-  .ar-header .header-nav-wrapper { flex: 1 1 auto; }  /* stretchy middle */
+  .ar-header .header-actions {
+    flex: 0 0 auto;            /* fixed edges */
+  }
 
-  .ar-header .header-nav { display:flex; }
+  .ar-header .header-nav-wrapper {
+    flex: 1 1 auto;            /* stretchy middle */
+  }
+
+  .ar-header .header-nav {
+    display: flex;
+  }
+
   .ar-header .header-nav-list {
-    display:flex;
-    justify-content:center; 
+    display: flex;
+    justify-content: center;
     gap: clamp(12px, 2.2vw, 36px);
-    flex-wrap:nowrap;
+    row-gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .ar-header .header-nav-item {
+    margin: 0;                 /* reset theme margins */
+    white-space: nowrap;       /* keep labels on one line */
   }
 }
 
