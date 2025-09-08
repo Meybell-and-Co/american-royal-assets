@@ -31,7 +31,7 @@
 .ar-header .header-nav-folder-title,
 .ar-header .header-nav-folder-title-text{
   font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  font-weight:300;
+  font-weight:300 !important;
   color:var(--ar-fg);
   letter-spacing:.01em;
   line-height:1.2;
@@ -50,7 +50,7 @@
 .ar-header .header-nav-folder-item a span,
 .ar-header .header-nav-folder-item .header-nav-folder-item-content {
   font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-weight: 600;   /* bold for dropdown */
+  font-weight: 600 !important;   /* bold for dropdown */
 }
 
 /* Mobile menu force Veneer */
