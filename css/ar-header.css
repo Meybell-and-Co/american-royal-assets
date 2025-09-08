@@ -200,9 +200,18 @@
 /* Break out of the content max-width and bleed edge-to-edge on big screens */
 @media (min-width:1025px){
   .ar-header .header-inner{
+    position:relative;
     width: 100vw;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    left: 50%;
+    margin-left: -50vw;
+  }
+}
+
+@media (max-width:1024px){
+  .ar-header .header-inner{
+    width: 100%;
+    left: 0;
+    margin-left: 0;
   }
 }
 
@@ -214,18 +223,16 @@
     transform: none;
   }
 }
-
-/* Collapses the gap under the header */
-.ar-header,
-.ar-header .header,
-.ar-header .header-inner {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+.ar-header, .ar-header .header, .ar-header .header-inner{
+  margin-bottom:0 !important; padding-bottom:0 !important;
 }
-
-/* Reduces top spacing on the first content section after the header */
-.ar-header + #siteWrapper .sections > .page-section:first-of-type,
-.ar-header + .site-wrapper .sections > .page-section:first-of-type {
-  margin-top: 0 !important;
-  padding-top: clamp(12px, 2vw, 32px) !important;  /* adjust as needed */
+.ar-header ~ main#page .sections > .page-section:first-of-type{
+  margin-top:0 !important;
+  padding-top:clamp(12px,2vw,32px) !important;
+}
+.ar-header ~ main#page .sections > .page-section:first-of-type[style*="padding-top"]{
+  padding-top:clamp(12px,2vw,32px) !important;
+}
+.ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
+  display:none !important; height:0 !important; margin:0 !important;
 }
