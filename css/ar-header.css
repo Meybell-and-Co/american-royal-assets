@@ -200,34 +200,39 @@
   padding-bottom: clamp(32px, 5vw, 120px) !important;
 }
 
-/* Navy blue band at bottom of header */
+/* Navy blue band at bottom of header (desktop) */
 @media (min-width:1025px){
-    /* Band */
-  .ar-header .header-inner{ position: relative; }
+  /* base layer */
+  .ar-header .header-inner{ position: relative; z-index: 0; }
+
+  /* the band sits under the nav */
   .ar-header .header-inner::before{
     content:"";
     position:absolute; left:0; right:0; bottom:0;
-    height: clamp(80px, 5.5vw, 125px);           /* band height */
+    height: clamp(44px, 5.5vw, 72px);           /* bar height; tweak to taste */
     background: var(--ar-navy);
-    opacity: 0.92;                               /* tweak contrast if needed */
-    pointer-events:none;
-    z-index: 10;
+    opacity: 0.92;
+    pointer-events: none;
+    z-index: 1;                                 /* BELOW nav */
   }
 
-  /* Anchor the nav over the band */
+  /* nav anchored over the band */
   .ar-header nav.header-nav{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: clamp(6px, 1.2vw, 16px);             /* vertical offset from bottom */
-    width: max-content;                          /* keep links snug */
-    z-index: 20;
+    bottom: clamp(6px, 1.2vw, 16px);            /* vertical offset from bottom */
+    width: max-content;
+    z-index: 20;                                /* ABOVE the band */
   }
 
-  /* keep logo / actions above the band too */
+  /* logo/actions above, too */
   .ar-header .header-title,
   .ar-header .header-actions{
     position: relative;
     z-index: 20;
   }
+
+  /* optional: give the wrapper a layer without touching the nav */
+  /* .ar-header .header-nav-wrapper{ position: relative; z-index: 10; } */
 }
