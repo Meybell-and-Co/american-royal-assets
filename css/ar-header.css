@@ -173,3 +173,18 @@
 .ar-header .site-header .accent-bar{ display:none !important; height:0 !important; }
 .ar-header .Header::before,
 .ar-header .Header::after{ content:none !important; background:none !important; box-shadow:none !important; border:0 !important; }
+
+/* Ensures the navigation menu stays centered within header */
+@media (min-width:1025px){
+  .ar-header .header-title,
+  .ar-header .header-actions { flex: 0 0 auto; }     /* fixed edges */
+  .ar-header .header-nav-wrapper { flex: 1 1 auto; }  /* stretchy middle */
+
+  .ar-header .header-nav { display:flex; }
+  .ar-header .header-nav-list {
+    display:flex;
+    justify-content:center; 
+    gap: clamp(12px, 2.2vw, 36px);
+    flex-wrap:nowrap;
+  }
+}
