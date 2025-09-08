@@ -179,9 +179,9 @@
 /* Creates full-bleed header image */
 .ar-header .header-inner{
   background-size: cover !important;
-  background-position: center center !important;
+  background-position: center 72% !important;
   background-repeat: no-repeat !important;
-  min-height: clamp(260px, 32vw, 520px); /* responsive height */
+  min-height: clamp(180px, 21vw, 350px); /* responsive height */
 }
 
 /* Break out of the content max-width and bleed edge-to-edge on big screens */
