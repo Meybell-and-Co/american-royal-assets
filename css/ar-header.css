@@ -30,8 +30,8 @@
 .ar-header .header-nav a,
 .ar-header .header-nav-folder-title,
 .ar-header .header-nav-folder-title-text{
-  font-family:"Veneer",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif !important;
-  font-weight:normal;
+  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:500;
   color:var(--ar-fg);
   letter-spacing:.01em;
   line-height:1.2;
@@ -45,6 +45,14 @@
   text-underline-offset:2px;
 }
 
+/* Makes subordinate dropdown items bolder */
+.ar-header .header-nav-folder-item a,
+.ar-header .header-nav-folder-item a span,
+.ar-header .header-nav-folder-item .header-nav-folder-item-content {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 600;   /* bold for dropdown */
+}
+
 /* Mobile menu force Veneer */
 @media (max-width: 1024px) {
   .ar-header .header-menu,
@@ -54,18 +62,10 @@
   .ar-header .header-menu-nav-folder-title,
   .ar-header .header-menu-nav-folder-title-text,
   .ar-header .header-menu-cta a {
-    font-family: "Veneer", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
-    font-weight: normal;   /* Veneer is single-weight */
+    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: normal;
     letter-spacing: .015em;
     line-height: 1.2;
-  }
-}
-
-/* Reduce Veneer size ontight phones */
-@media (max-width: 375px) {
-  .ar-header .header-menu-nav-item a,
-  .ar-header .header-menu-nav-folder-title-text {
-    font-size: 0.95rem;
   }
 }
 
