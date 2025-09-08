@@ -316,3 +316,30 @@
   position: relative;
   z-index: 50;
 }
+/* 1) Seal any 1px seam between header and first section */
+@media (min-width:1025px){
+  .ar-header .header-inner{ position: relative; } /* already set, harmless */
+  .ar-header .header-inner::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-1px;
+    height:1px; background: var(--ar-navy);
+    pointer-events:none;
+    z-index: 5; /* below nav (20) and submenu (50), above the image */
+  }
+}
+
+/* 2) Ensure no top divider sits on the first section */
+.ar-header ~ main#page .sections > .page-section:first-of-type {
+  border-top: 0 !important;
+  box-shadow: none !important;
+}
+.ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
+  display:none !important; height:0 !important; margin:0 !important;
+}
+
+/* 3) Belt-and-suspenders: kill any legacy thin stripe pseudo-elements */
+.ar-header::after,
+.ar-header .header::after,
+.ar-header .Header::after{
+  content:none !important; height:0 !important;
+}
