@@ -207,7 +207,7 @@
   .ar-header .header-inner::before{
     content:"";
     position:absolute; left:0; right:0; bottom:0;
-    height: clamp(50px, 5.5vw, 77px);           /* band height */
+    height: clamp(60px, 5.5vw, 90px);           /* band height */
     background: var(--ar-navy);
     opacity: 0.92;                               /* tweak contrast if needed */
     pointer-events:none;
