@@ -31,13 +31,6 @@
   line-height:1.2;
   text-decoration:none;
 }
-.ar-header .header-nav a:hover,
-.ar-header .header-nav a:focus,
-.ar-header .header-nav-folder-title:hover,
-.ar-header .header-nav-folder-title:focus{
-  text-decoration:underline;
-  text-underline-offset:2px;
-}
 
 /* Makes subordinate dropdown items bolder */
 .ar-header .header-nav-folder-item a,
@@ -63,12 +56,11 @@
   }
 }
 
-/* Active state (no red, keep clarity) */
+/* Active state styling */
 .ar-header .header-nav-item--active > a,
 .ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
   font-weight:600;
-  text-decoration:underline;
-  text-underline-offset:2px;
+  text-decoration:none;
 }
 
 @media (min-width: 1025px) {
@@ -117,13 +109,6 @@
   outline:2px solid #fff; outline-offset:2px;
 }
 
-/* Submenu color:
-   If your dropdown panel is light → navy text; if it overlays the navy header, swap to white. */
-.ar-header .header-nav-folder-item .header-nav-folder-item-content,
-.ar-header .header-nav-folder-item a,
-.ar-header .header-nav-folder-item a span{
-  color:var(--ar-navy);
-}
 /* Alternate (comment in if submenu sits over dark header)
 .ar-header .header-nav-folder-item .header-nav-folder-item-content,
 .ar-header .header-nav-folder-item a,
@@ -200,7 +185,6 @@
   padding-top: clamp(32px, 5vw, 120px) !important;
   padding-bottom: clamp(32px, 5vw, 120px) !important;
 }
-
 /* Navy blue band at bottom of header (desktop) */
 @media (min-width:1025px){
   /* base layer */
@@ -210,11 +194,11 @@
   .ar-header .header-inner::before{
     content:"";
     position:absolute; left:0; right:0; bottom:0;
-    height: clamp(60px, 5.5vw, 120px);           /* bar height; tweak to taste */
+    height: clamp(60px, 5.5vw, 120px);
     background: var(--ar-navy);
-    opacity: 1.0;
+    opacity: 1;
     pointer-events: none;
-    z-index: 1;                                 /* BELOW nav */
+    z-index: 1;                                   /* BELOW nav */
   }
 
   /* nav anchored over the band */
@@ -222,102 +206,78 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: clamp(6px, 1.2vw, 16px);            /* vertical offset from bottom */
+    bottom: clamp(6px, 1.2vw, 16px);
     width: max-content;
-    z-index: 20;                                /* ABOVE the band */
+    z-index: 20;                                  /* ABOVE the band */
   }
 
-  /* logo/actions above, too */
+  /* logo/actions above too */
   .ar-header .header-title,
   .ar-header .header-actions{
     position: relative;
     z-index: 20;
   }
-
-  /* optional: give the wrapper a layer without touching the nav */
-  /* .ar-header .header-nav-wrapper{ position: relative; z-index: 10; } */
 }
 
-/* Sets navy color for submenu dropdown panel */
-.ar-header .header-nav-folder-content{
-  background: var(--ar-navy) !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  z-index: 30;                 /* ensures she sits over the bar */
-}
-
-/* Sets submenu link color to off-white */
+/* Submenu link color (overrides any theme) */
 .ar-header .header-nav-folder-item a,
 .ar-header .header-nav-folder-item a span,
 .ar-header .header-nav-folder-item .header-nav-folder-item-content{
   color: var(--ar-offwhite) !important;
 }
-/* Prep: make nav links transformable, removes underline on hover/focus */
+
+/* Hover: no underline + gentle zoom */
 .ar-header .header-nav a,
 .ar-header .header-nav-folder-title,
 .ar-header .header-nav-folder-title-text,
 .ar-header .header-nav-folder-item a{
-  display: inline-flex;                 /* lets transform work smoothly */
-  align-items: center;
+  display:inline-flex;
+  align-items:center;
   transition: transform .18s ease, color .15s ease;
   will-change: transform;
 }
-
-/* Removes the harsh white underline upon hover */
 .ar-header .header-nav a:hover,
 .ar-header .header-nav a:focus,
 .ar-header .header-nav-folder-title:hover,
-.ar-header .header-nav-folder-title:focus{
-  text-decoration: none !important;
-}
-
-/* Zoom for both top-level and submenu links */
+.ar-header .header-nav-folder-title:focus{ text-decoration:none !important; }
 .ar-header .header-nav a:hover,
 .ar-header .header-nav a:focus,
 .ar-header .header-nav-folder-title:hover,
 .ar-header .header-nav-folder-title:focus,
 .ar-header .header-nav-folder-item a:hover,
-.ar-header .header-nav-folder-item a:focus{
-  transform: scale(1.06);
-}
+.ar-header .header-nav-folder-item a:focus{ transform:scale(1.06); }
+
+/* Active state: bold, no underline */
 .ar-header .header-nav-item--active > a,
 .ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
-  text-decoration: none !important;
+  font-weight:600; text-decoration:none;
 }
+
 /* === Always-on-top submenu (desktop) === */
 @media (min-width:1025px){
-  /* make sure no ancestor clips the panel */
+  /* prevent clipping anywhere in the header */
   .ar-header,
   .ar-header .header,
   .ar-header .header-inner,
   .ar-header .header-nav-wrapper,
   .ar-header .header-nav { overflow: visible !important; }
 
-  /* baseline layers you already use */
-  .ar-header .header-inner{ position: relative; z-index: 0; }        /* image layer */
-  .ar-header .header-inner::before{ z-index: 1; pointer-events:none; }/* navy band */
-  .ar-header .header-title,
-  .ar-header .header-actions,
-  .ar-header nav.header-nav{ position: relative; z-index: 20; }       /* nav/brand */
-
-  /* put the dropdown panel way above everything */
+  /* panel above everything */
   .ar-header .header-nav-folder-content{
-    position: absolute;   /* required for z-index to stack over siblings */
-    z-index: 1000 !important;
-    background: var(--ar-navy) !important; /* your solid navy backdrop */
-    border: 0 !important;
-    box-shadow: none !important;
+    position: relative;                 /* SS layout-friendly */
+    z-index: 1000 !important;           /* above band & nav */
+    background: var(--ar-navy) !important;
+    border:0 !important; box-shadow:none !important;
   }
 
-  /* submenu links inherit the panel’s layer; keep them clickable */
+  /* items ride the same layer */
   .ar-header .header-nav-folder-item,
   .ar-header .header-nav-folder-item a{
     position: relative; z-index: inherit;
-    color: var(--ar-offwhite) !important;
   }
 }
 
-/* belt & suspenders: any rogue thin stripe cannot sit above the panel */
+/* Belt & suspenders: no legacy thin stripe may overlay */
 .ar-header::after,
 .ar-header .header::after,
 .ar-header .Header::after{ content:none !important; height:0 !important; }
