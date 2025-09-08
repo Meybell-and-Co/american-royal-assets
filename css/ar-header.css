@@ -214,3 +214,18 @@
     transform: none;
   }
 }
+
+/* Collapses the gap under the header */
+.ar-header,
+.ar-header .header,
+.ar-header .header-inner {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Reduces top spacing on the first content section after the header */
+.ar-header + #siteWrapper .sections > .page-section:first-of-type,
+.ar-header + .site-wrapper .sections > .page-section:first-of-type {
+  margin-top: 0 !important;
+  padding-top: clamp(12px, 2vw, 32px) !important;  /* adjust as needed */
+}
