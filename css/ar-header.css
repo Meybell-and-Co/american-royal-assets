@@ -284,3 +284,6 @@
 .ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
   text-decoration: none !important;
 }
+
+/* Removes any legacy stripe */
+.ar-header::after { content: none !important; height: 0 !important; }
