@@ -19,12 +19,6 @@
   color:var(--ar-fg);
   position:relative;
 }
-.ar-header::after{
-  content:"";
-  display:block;
-  height:4px;                /* thickness of the single blue bar */
-  background:var(--ar-navy); /* solid; switch to gradient if desired */
-}
 
 /* Type */
 .ar-header .header-nav a,
