@@ -215,24 +215,18 @@
   }
 }
 
-/* Mobile guardrails */
-@media (max-width:1024px){
-  .ar-header .header-inner{
-    width: 100%;
-    margin-left: 0;
-    transform: none;
-  }
-}
 .ar-header, .ar-header .header, .ar-header .header-inner{
   margin-bottom:0 !important; padding-bottom:0 !important;
 }
+
 .ar-header ~ main#page .sections > .page-section:first-of-type{
   margin-top:0 !important;
-  padding-top:clamp(12px,2vw,32px) !important;
 }
-.ar-header ~ main#page .sections > .page-section:first-of-type[style*="padding-top"]{
-  padding-top:clamp(12px,2vw,32px) !important;
-}
+
 .ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
   display:none !important; height:0 !important; margin:0 !important;
+}
+
+html.sqs-edit-mode .ar-header ~ main#page .sections > .page-section:first-of-type{
+  margin-top: initial !important;
 }
