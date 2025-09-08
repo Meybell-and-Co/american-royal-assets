@@ -223,6 +223,12 @@
   margin-top:0 !important;
 }
 
+/* Cap the custom height on the first section so it can’t balloon on ultrawide */
+.ar-header ~ main#page .sections > .page-section:first-of-type.section-height--custom {
+  padding-top: clamp(48px, 6vw, 160px) !important;
+  padding-bottom: clamp(48px, 6vw, 160px) !important;
+}
+
 .ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
   display:none !important; height:0 !important; margin:0 !important;
 }
