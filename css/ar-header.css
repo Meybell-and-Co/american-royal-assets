@@ -53,7 +53,7 @@
   font-weight: 600 !important;   /* bold for dropdown */
 }
 
-/* Mobile menu force Veneer */
+/* Mobile menu force Outfit */
 @media (max-width: 1024px) {
   .ar-header .header-menu,
   .ar-header .header-menu-nav-list,
@@ -75,6 +75,27 @@
   font-weight:600;
   text-decoration:underline;
   text-underline-offset:2px;
+}
+
+/* Desktop nav spacing */
+@media (min-width: 1025px) {
+  .ar-header .header-nav-wrapper { 
+    flex: 1 1 auto;                 /* let nav use space */
+  }
+  .ar-header .header-nav { 
+    display: flex; 
+    justify-content: center;        /* keep it centered */
+  }
+  .ar-header .header-nav-list { 
+    display: flex; 
+    gap: clamp(12px, 2.2vw, 36px);  /* horizontal space between items */
+    row-gap: 0; 
+    flex-wrap: nowrap; 
+  }
+  .ar-header .header-nav-item { 
+    margin: 0;                      /* reset any theme margins */
+    white-space: nowrap;            /* keep labels on one line */
+  }
 }
 
 /* Icons inherit white (works best with SVGs) */
