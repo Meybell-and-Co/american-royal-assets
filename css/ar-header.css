@@ -237,3 +237,50 @@
   /* optional: give the wrapper a layer without touching the nav */
   /* .ar-header .header-nav-wrapper{ position: relative; z-index: 10; } */
 }
+
+/* Sets navy color for submenu dropdown panel */
+.ar-header .header-nav-folder-content{
+  background: var(--ar-navy) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  z-index: 30;                 /* ensures she sits over the bar */
+}
+
+/* Sets submenu link color to off-white */
+.ar-header .header-nav-folder-item a,
+.ar-header .header-nav-folder-item a span,
+.ar-header .header-nav-folder-item .header-nav-folder-item-content{
+  color: var(--ar-offwhite) !important;
+}
+/* Prep: make nav links transformable, removes underline on hover/focus */
+.ar-header .header-nav a,
+.ar-header .header-nav-folder-title,
+.ar-header .header-nav-folder-title-text,
+.ar-header .header-nav-folder-item a{
+  display: inline-flex;                 /* lets transform work smoothly */
+  align-items: center;
+  transition: transform .18s ease, color .15s ease;
+  will-change: transform;
+}
+
+/* Removes the harsh white underline upon hover */
+.ar-header .header-nav a:hover,
+.ar-header .header-nav a:focus,
+.ar-header .header-nav-folder-title:hover,
+.ar-header .header-nav-folder-title:focus{
+  text-decoration: none !important;
+}
+
+/* Zoom for both top-level and submenu links */
+.ar-header .header-nav a:hover,
+.ar-header .header-nav a:focus,
+.ar-header .header-nav-folder-title:hover,
+.ar-header .header-nav-folder-title:focus,
+.ar-header .header-nav-folder-item a:hover,
+.ar-header .header-nav-folder-item a:focus{
+  transform: scale(1.06);
+}
+.ar-header .header-nav-item--active > a,
+.ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
+  text-decoration: none !important;
+}
