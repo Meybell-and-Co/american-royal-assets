@@ -207,32 +207,8 @@
   }
 }
 
-@media (max-width:1024px){
-  .ar-header .header-inner{
-    width: 100%;
-    left: 0;
-    margin-left: 0;
-  }
-}
-
-.ar-header, .ar-header .header, .ar-header .header-inner{
-  margin-bottom:0 !important; padding-bottom:0 !important;
-}
-
-.ar-header ~ main#page .sections > .page-section:first-of-type{
-  margin-top:0 !important;
-}
-
-/* Cap the custom height on the first section so it can’t balloon on ultrawide */
+/* Cap the first section’s custom height so it can’t balloon */
 .ar-header ~ main#page .sections > .page-section:first-of-type.section-height--custom {
-  padding-top: clamp(48px, 6vw, 160px) !important;
-  padding-bottom: clamp(48px, 6vw, 160px) !important;
-}
-
-.ar-header ~ main#page .sections > .page-section:first-of-type .section-border{
-  display:none !important; height:0 !important; margin:0 !important;
-}
-
-html.sqs-edit-mode .ar-header ~ main#page .sections > .page-section:first-of-type{
-  margin-top: initial !important;
+  padding-top: clamp(32px, 5vw, 120px) !important;
+  padding-bottom: clamp(32px, 5vw, 120px) !important;
 }
