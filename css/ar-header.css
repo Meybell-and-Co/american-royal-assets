@@ -281,3 +281,32 @@
 .ar-header::after,
 .ar-header .header::after,
 .ar-header .Header::after{ content:none !important; height:0 !important; }
+
+/* 1) Kill the first section's top divider/stripe entirely */
+.ar-header ~ main#page .sections > .page-section:first-of-type .section-border,
+.ar-header ~ main#page .sections > .page-section:first-of-type .section-borders,
+.ar-header ~ main#page .sections > .page-section:first-of-type .section-divider {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+/* 2) Keep the dropdown panel way above anything from the page sections */
+@media (min-width:1025px){
+  .ar-header .header-nav-folder-content{
+    position: relative;            /* SS-friendly */
+    z-index: 1000 !important;      /* above bands, borders, etc. */
+    background: var(--ar-navy) !important;
+  }
+}
+
+/* 3) Belt & suspenders: no legacy thin stripe on the header itself */
+.ar-header::after,
+.ar-header .header::after,
+.ar-header .Header::after{
+  content: none !important;
+  height: 0 !important;
+}
