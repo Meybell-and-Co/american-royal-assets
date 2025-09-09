@@ -209,3 +209,41 @@
   .timeline-arrow.bopping-right { animation: none; }
   .timeline-content { scroll-behavior: auto; }
 }
+/* Card titles: force AR off-white even if wrapped in a link */
+.timeline-item h3,
+.timeline-item h3 a,
+.timeline-card h3,
+.timeline-card h3 a {
+  color: var(--ar-off-white) !important;
+  font-family: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* Ensure all body copy on the card is Outfit (win against theme globals) */
+.timeline-item,
+.timeline-card {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+/* Full-width wrapper; center contents */
+.ar-footer-logo {
+  margin: 48px auto 0;
+  width: 100%;           /* was 220px */
+  max-width: none;       /* remove the 28vw cap */
+  display: flex;
+  justify-content: center;
+  opacity: .75;
+}
+
+/* Keep the image constrained and truly centered */
+.ar-footer-logo img {
+  max-width: 220px;      /* size control lives on the img */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  opacity: .3;
+}
+
+/* Mobile spacing */
+@media (max-width:900px){
+  .ar-footer-logo { margin-top: 32px; }
+}
