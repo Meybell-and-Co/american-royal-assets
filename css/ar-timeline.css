@@ -242,7 +242,7 @@
 .timeline-loaded-fade { opacity: 0; transition: opacity .5s cubic-bezier(.52,2,.45,.77); }
 .timeline-loaded-fade.timeline-show { opacity: 1; }
 .ar-footer-logo { margin: 24px auto 0; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
-.ar-footer-logo img { width: 100%; height: auto; display: block; }
+.ar-footer-logo img { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; opacity: .3; }
 
 /* Responsive tweaks */
 @media (max-width:900px){
