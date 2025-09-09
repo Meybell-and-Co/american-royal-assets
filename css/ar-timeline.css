@@ -15,7 +15,7 @@
   position: relative;
   margin: 2rem auto;
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
 }
 
 .timeline-progress-bar-bg {
@@ -70,9 +70,9 @@
   color: var(--ar-off-white);
   border-radius: 1rem;
   padding: 1.5rem;
-  width: 220px;
-  min-width: 220px;
-  max-width: 220px;
+  width: 180px;
+  min-width: 180px;
+  max-width: 180px;
   height: 340px;
   min-height: 340px;
   flex: 0 0 auto;
@@ -199,18 +199,18 @@
 /* Dots: add the class your JS uses, but keep your old one for safety */
 .timeline-dots,
 .timeline-progress-dots { /* alias so both class names work */
-  position: relative;
+  position: absolute;
   left: 0;
-  top: 0;
+  top: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  transform: none;
+  transform: translateY(10px);
   pointer-events: none;
   padding: 0 8px;
   height: 40px;
-  z-index: 1;
+  z-index: 2;
 
 .timeline-dot {
   width: 20px; height: 20px; border-radius: 50%;
