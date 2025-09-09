@@ -180,47 +180,118 @@
 /* Remove Squarespace default header stripe */
 .header-border{ border:none !important; }
 
-/* Contribute Button */
-.ar-header nav.header-nav-list a[href*="contribute"],
-.ar-header nav.header-nav-list a[href*="donate"],
-.ar-header nav.header-nav-list a[href*="donorbox"],
-.ar-header [data-animation-role="header-element"][href*="contribute"],
-.ar-header [data-animation-role="header-element"][href*="donate"],
-.ar-header [data-animation-role="header-element"][href*="donorbox"]{
-  background: var(--ar-cta) !important;
-  color: #fff !important;
-  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  padding: .6em 1.1em !important;
-  border-radius: 9999px !important;
-  min-height: 44px; line-height: 1; white-space: nowrap;
-  display: inline-flex !important; align-items: center; justify-content: center;
-  text-decoration: none !important;
-  box-shadow: 0 2px 0 rgba(0,0,0,.18);
-  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
-}
-.ar-header nav.header-nav-list a[href*="contribute"]:hover,
-.ar-header nav.header-nav-list a[href*="donate"]:hover,
-.ar-header nav.header-nav-list a[href*="donorbox"]:hover{
-  background: var(--ar-cta-dark) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 0 rgba(0,0,0,.22);
-}
-.ar-header nav.header-nav-list a[href*="contribute"]:active,
-.ar-header nav.header-nav-list a[href*="donate"]:active,
-.ar-header nav.header-nav-list a[href*="donorbox"]:active{
-  transform: translateY(0);
-  box-shadow: 0 1px 0 rgba(0,0,0,.18);
-}
-.ar-header nav.header-nav-list a[href*="contribute"]:focus-visible,
-.ar-header nav.header-nav-list a[href*="donate"]:focus-visible,
-.ar-header nav.header-nav-list a[href*="donorbox"]:focus-visible{
-  outline: 2px solid var(--ar-sky); outline-offset: 3px; border-radius: 9999px;
-}
-
 /* Kill the tiny horizontal scrollbar from header layout overflow */
 .ar-header .header-inner{ overflow-x: clip; }
 html, body{ overflow-x: clip; }
+
+/* ================================
+   Contribute Button CTA (desktop + mobile)
+   ================================ */
+
+/* Make header a positioning context */
+.ar-header{ position: relative; }
+
+/* ---------- Desktop: floating CTA ---------- */
+@media (min-width:1025px){
+  /* Target your actual markup (bare <a> in header-nav-list OR header-element) */
+  .ar-header nav.header-nav-list a[href*="contribute"],
+  .ar-header nav.header-nav-list a[href*="donate"],
+  .ar-header nav.header-nav-list a[href*="donorbox"],
+  .ar-header [data-animation-role="header-element"][href*="contribute"],
+  .ar-header [data-animation-role="header-element"][href*="donate"],
+  .ar-header [data-animation-role="header-element"][href*="donorbox"]{
+    position: absolute;
+    right: clamp(16px, 3vw, 36px);
+
+    /* ⬇️ The button's BOTTOM will sit on this baseline */
+    --cta-baseline: 138px;              /* TUNE THIS NUMBER */
+    top: var(--cta-baseline);
+    transform: translateY(-100%);       /* bottom aligns to baseline */
+    transform-origin: center;
+    z-index: 5;
+
+    background: var(--ar-cta) !important;
+    color: #fff !important;
+    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: .65em 1.15em !important;
+    border-radius: 9999px !important;
+    min-height: 44px; line-height: 1; white-space: nowrap;
+    display: inline-flex !important; align-items: center; justify-content: center;
+    text-decoration: none !important;
+    box-shadow: 0 2px 0 rgba(0,0,0,.18);
+    transition:
+      transform .2s ease,
+      box-shadow .2s ease,
+      background-color .2s ease,
+      font-size .2s ease;
+  }
+
+  /* Hover: enlarge without breaking baseline; keep red */
+  .ar-header nav.header-nav-list a[href*="contribute"]:hover,
+  .ar-header nav.header-nav-list a[href*="donate"]:hover,
+  .ar-header nav.header-nav-list a[href*="donorbox"]:hover,
+  .ar-header [data-animation-role="header-element"][href*="contribute"]:hover,
+  .ar-header [data-animation-role="header-element"][href*="donate"]:hover,
+  .ar-header [data-animation-role="header-element"][href*="donorbox"]:hover{
+    background: var(--ar-cta-dark) !important;
+    font-size: 1.08rem;
+    transform: translateY(-100%) scale(1.08);
+    box-shadow: 0 4px 10px rgba(0,0,0,.22);
+  }
+
+  /* Active */
+  .ar-header nav.header-nav-list a[href*="contribute"]:active,
+  .ar-header nav.header-nav-list a[href*="donate"]:active,
+  .ar-header nav.header-nav-list a[href*="donorbox"]:active,
+  .ar-header [data-animation-role="header-element"][href*="contribute"]:active,
+  .ar-header [data-animation-role="header-element"][href*="donate"]:active,
+  .ar-header [data-animation-role="header-element"][href*="donorbox"]:active{
+    transform: translateY(-100%) scale(1);
+    box-shadow: 0 1px 0 rgba(0,0,0,.18);
+  }
+
+  /* Focus ring for keyboard users */
+  .ar-header nav.header-nav-list a[href*="contribute"]:focus-visible,
+  .ar-header nav.header-nav-list a[href*="donate"]:focus-visible,
+  .ar-header nav.header-nav-list a[href*="donorbox"]:focus-visible,
+  .ar-header [data-animation-role="header-element"][href*="contribute"]:focus-visible,
+  .ar-header [data-animation-role="header-element"][href*="donate"]:focus-visible,
+  .ar-header [data-animation-role="header-element"][href*="donorbox"]:focus-visible{
+    outline: 2px solid var(--ar-sky);
+    outline-offset: 3px;
+    border-radius: 9999px;
+  }
+} /* closes desktop @media */
+
+/* ---------- Mobile: drawer button ---------- */
+@media (max-width:1024px){
+  .sqs-mobile-nav .header-menu-nav a[href*="contribute"],
+  .sqs-mobile-nav .header-menu-nav a[href*="donate"],
+  .sqs-mobile-nav .header-menu-nav a[href*="donorbox"]{
+    background: var(--ar-cta) !important;
+    color: #fff !important;
+    border-radius: .7rem !important;
+    padding: .9rem 1.05rem !important;
+    font-weight: 700; line-height: 1;
+  }
+}
+
+/* Avoid tiny horizontal scrollbar from header layout */
+.ar-header .header-inner{ overflow-x: clip; }
+html, body{ overflow-x: clip; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .ar-header nav.header-nav-list a[href*="contribute"],
+  .ar-header nav.header-nav-list a[href*="donate"],
+  .ar-header nav.header-nav-list a[href*="donorbox"],
+  .ar-header [data-animation-role="header-element"][href*="contribute"],
+  .ar-header [data-animation-role="header-element"][href*="donate"],
+  .ar-header [data-animation-role="header-element"][href*="donorbox"]{
+    transition: none;
+  }
+}
