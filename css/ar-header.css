@@ -202,8 +202,8 @@ html, body{ overflow-x: clip; }
   .ar-header [data-animation-role="header-element"][href*="donate"],
   .ar-header [data-animation-role="header-element"][href*="donorbox"]{
     position: absolute;
-    right: 2rem;              /* distance from right edge – tweak this */
-    top: 3rem;                /* distance from top edge – tweak this */
+    right: 4rem;              /* distance from right edge – tweak this */
+    top: 2.5rem;                /* distance from top edge – tweak this */
     z-index: 5;
 
     background: var(--ar-cta) !important;
