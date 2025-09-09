@@ -19,19 +19,11 @@
 }
 
 .timeline-progress-bar-bg {
-  position: relative;
-  height: var(--progress-height);
-  background-color: var(--inactive-dot-color);
-  border-radius: 2px;
-  overflow: hidden;
+  display: none;
 }
 
 .timeline-progress-bar-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: var(--progress-height);
-  width: 0%;
+  display: none;
   background-color: var(--ar-navy);
   transition: width 0.4s ease-in-out;
 }
@@ -39,8 +31,8 @@
 .timeline-progress-dots {
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  top: -6px;
+  position: relative;
+  top: 0;
   left: 0;
   right: 0;
   padding: 0 8px;
@@ -52,11 +44,11 @@
   height: var(--dot-size);
   border-radius: 50%;
   background-color: var(--inactive-dot-color);
-  cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 2px 6px rgba(0, 47, 108, 0.12);
   border: 3px solid #fff;
   display: inline-block;
+  margin: 0 8px;
   position: relative;
   z-index: 2;
 }
