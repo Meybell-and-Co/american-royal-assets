@@ -310,3 +310,8 @@
   content: none !important;
   height: 0 !important;
 }
+
+/* Remove Squarespace default header stripe */
+.header-border {
+  border: none !important;
+}
