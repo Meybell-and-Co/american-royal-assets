@@ -13,7 +13,6 @@
   --ar-fg:#fff;
   --ar-cta-dark: #BE3526;
   }
-}
 
 /* Skin */
 .ar-header{
@@ -225,10 +224,10 @@ html, body{ overflow-x: clip; }
     
     box-shadow: 0 2px 0 rgba(0,0,0,.18);
     transition:
-      transform .2s ease,
-      box-shadow .2s ease,
+      transform .32s cubic-bezier(.4,0,.2,1),
+      box-shadow .32s cubic-bezier(.4,0,.2,1),
       background-color .2s ease,
-      font-size .2s ease;
+      font-size .2s cubic-bezier(.4,0,.2,1);
   }
 
 /* Hover: enlarge + keep red background */
