@@ -1,6 +1,6 @@
 /* ===========================================
    AMERICAN ROYAL • Header UI (namespaced)
-   Requires: <link rel="preconnect" href="https://fonts.googleapis.com"> + Outfit
+   Requires: Outfit via <link rel="preconnect" …>
    Wrapper: Add class="ar-header" to the header container
    =========================================== */
 
@@ -10,7 +10,7 @@
   --ar-sky:#92B8E2;
   --ar-offwhite:#F7F6FB;
   --ar-cta:#BE3526;
-  --ar-fg:#ffffff;
+  --ar-fg:#fff;
 }
 
 /* Skin */
@@ -32,59 +32,55 @@
   text-decoration:none;
 }
 
-/* Makes subordinate dropdown items bolder */
+/* Submenu items a bit bolder */
 .ar-header .header-nav-folder-item a,
 .ar-header .header-nav-folder-item a span,
-.ar-header .header-nav-folder-item .header-nav-folder-item-content {
-  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-weight: 600 !important;   /* bold for dropdown */
+.ar-header .header-nav-folder-item .header-nav-folder-item-content{
+  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:600 !important;
 }
 
 /* Mobile menu force Outfit */
-@media (max-width: 1024px) {
+@media (max-width:1024px){
   .ar-header .header-menu,
   .ar-header .header-menu-nav-list,
   .ar-header .header-menu-nav-item,
   .ar-header .header-menu-nav-item a,
   .ar-header .header-menu-nav-folder-title,
   .ar-header .header-menu-nav-folder-title-text,
-  .ar-header .header-menu-cta a {
-    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    font-weight: normal;
-    letter-spacing: .015em;
-    line-height: 1.2;
+  .ar-header .header-menu-cta a{
+    font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    font-weight:400;
+    letter-spacing:.015em;
+    line-height:1.2;
   }
 }
 
-/* Active state styling */
+/* Active state */
 .ar-header .header-nav-item--active > a,
 .ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
   font-weight:600;
   text-decoration:none;
 }
 
-@media (min-width: 1025px) {
+/* Layout width */
+@media (min-width:1025px){
   .ar-header .header-title-nav-wrapper,
-  .ar-header .header-nav-wrapper {
-    max-width: 1400px;              /* widen the lane a bit */
-    margin-inline: auto;
-    padding-inline: clamp(12px, 2vw, 32px);
+  .ar-header .header-nav-wrapper{
+    max-width:1400px;
+    margin-inline:auto;
+    padding-inline:clamp(12px,2vw,32px);
   }
 }
 
-/* Icons inherit white (works best with SVGs) */
+/* Icons inherit white */
 .ar-header .header-nav svg,
-.ar-header .header-nav .icon{
-  color:var(--ar-fg);
-  fill:currentColor;
-}
+.ar-header .header-nav .icon{ color:var(--ar-fg); fill:currentColor; }
 
 /* Logo sizing */
 .ar-header .header-title-logo{ display:flex; align-items:center; justify-content:center; padding-top:1rem; }
 .ar-header .header-title-logo img{ display:block; height:auto; max-height:120px; margin-top:16px; }
-@media (max-width:768px){
-  .ar-header .header-title-logo img{ max-height:80px; margin-top:8px; }
-}
+@media (max-width:768px){ .ar-header .header-title-logo img{ max-height:80px; margin-top:8px; } }
 
 /* CTA: Contribute */
 .ar-header .header-nav-item a[href*="contribute"]{
@@ -101,19 +97,8 @@
   display:inline-flex; align-items:center; justify-content:center;
   transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
-.ar-header .header-nav-item a[href*="contribute"]:hover{
-  transform:translateY(-1px);
-  box-shadow:0 4px 10px rgba(0,0,0,.18);
-}
-.ar-header .header-nav-item a[href*="contribute"]:focus{
-  outline:2px solid #fff; outline-offset:2px;
-}
-
-/* Alternate (comment in if submenu sits over dark header)
-.ar-header .header-nav-folder-item .header-nav-folder-item-content,
-.ar-header .header-nav-folder-item a,
-.ar-header .header-nav-folder-item a span{ color:#fff; }
-*/
+.ar-header .header-nav-item a[href*="contribute"]:hover{ transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.18); }
+.ar-header .header-nav-item a[href*="contribute"]:focus{ outline:2px solid #fff; outline-offset:2px; }
 
 /* Dropdown reveal animation (scoped) */
 @keyframes ar-slideFadeIn{ from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
@@ -125,105 +110,56 @@
 .ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(5){animation-delay:.5s}
 .ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(6){animation-delay:.6s}
 
-/* Safety: neutralize any legacy streaks inside header only */
-.ar-header .header-streak,
-.ar-header .header-accent,
-.ar-header .site-header .accent-bar{ display:none !important; height:0 !important; }
-.ar-header .Header::before,
-.ar-header .Header::after{ content:none !important; background:none !important; box-shadow:none !important; border:0 !important; }
-
-/* Ensures the navigation menu stays centered within header */
+/* Desktop nav centering & gaps */
 @media (min-width:1025px){
-  .ar-header .header-title,
-  .ar-header .header-actions {
-    flex: 0 0 auto;            /* fixed edges */
+  .ar-header .header-title, .ar-header .header-actions{ flex:0 0 auto; }
+  .ar-header .header-nav-wrapper{ flex:1 1 auto; }
+  .ar-header .header-nav{ display:flex; }
+  .ar-header .header-nav-list{
+    display:flex; justify-content:center; align-items:center;
+    gap:clamp(12px,2.2vw,36px); row-gap:0; flex-wrap:nowrap;
   }
-
-  .ar-header .header-nav-wrapper {
-    flex: 1 1 auto;            /* stretchy middle */
-  }
-
-  .ar-header .header-nav {
-    display: flex;
-  }
-
-  .ar-header .header-nav-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(12px, 2.2vw, 36px);
-    row-gap: 0;
-    flex-wrap: nowrap;
-  }
-
-  .ar-header .header-nav-item {
-    margin: 0;                 /* reset theme margins */
-    white-space: nowrap;       /* keep labels on one line */
-  }
+  .ar-header .header-nav-item{ margin:0; white-space:nowrap; }
 }
 
-/* Creates full-bleed header image */
+/* Full-bleed header image */
 .ar-header .header-inner{
-  background-size: cover !important;
-  background-position: center 72% !important;
-  background-repeat: no-repeat !important;
-  min-height: clamp(180px, 21vw, 350px); /* responsive height */
+  background-size:cover !important;
+  background-position:center 72% !important;
+  background-repeat:no-repeat !important;
+  min-height:clamp(180px,21vw,350px);
 }
-
-/* Break out of the content max-width and bleed edge-to-edge on big screens */
 @media (min-width:1025px){
   .ar-header .header-inner{
     position:relative;
-    width: 100vw;
-    left: 50%;
-    margin-left: -50vw;
+    width:100vw;
+    left:50%;
+    margin-left:-50vw;
   }
 }
 
-/* Cap the first section’s custom height so it can’t balloon */
-.ar-header ~ main#page .sections > .page-section:first-of-type.section-height--custom {
-  padding-top: clamp(32px, 5vw, 120px) !important;
-  padding-bottom: clamp(32px, 5vw, 120px) !important;
-}
-/* Navy blue band at bottom of header (desktop) */
+/* Navy band at bottom of header (desktop) */
 @media (min-width:1025px){
-  /* base layer */
-  .ar-header .header-inner{ position: relative; z-index: 0; }
-
-  /* the band sits under the nav */
+  .ar-header .header-inner{ position:relative; z-index:0; }
   .ar-header .header-inner::before{
     content:"";
     position:absolute; left:0; right:0; bottom:0;
-    height: clamp(60px, 5.5vw, 120px);
-    background: var(--ar-navy);
-    opacity: 1;
-    pointer-events: none;
-    z-index: 1;                                   /* BELOW nav */
+    height:clamp(60px,5.5vw,120px);
+    background:var(--ar-navy);
+    opacity:1; pointer-events:none; z-index:1;
   }
-
-  /* nav anchored over the band */
   .ar-header nav.header-nav{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(6px, 1.2vw, 16px);
-    width: max-content;
-    z-index: 20;                                  /* ABOVE the band */
+    position:absolute; left:50%; transform:translateX(-50%);
+    bottom:clamp(6px,1.2vw,16px); width:max-content; z-index:20;
   }
-
-  /* logo/actions above too */
-  .ar-header .header-title,
-  .ar-header .header-actions{
-    position: relative;
-    z-index: 20;
-  }
+  .ar-header .header-title, .ar-header .header-actions{ position:relative; z-index:20; }
 }
 
-/* Submenu link color (overrides any theme) */
+/* Submenu link color */
 .ar-header .header-nav-folder-item a,
 .ar-header .header-nav-folder-item a span,
 .ar-header .header-nav-folder-item .header-nav-folder-item-content{
-  color: var(--ar-offwhite) !important;
+  color:var(--ar-offwhite) !important;
 }
 
 /* Hover: no underline + gentle zoom */
@@ -231,10 +167,8 @@
 .ar-header .header-nav-folder-title,
 .ar-header .header-nav-folder-title-text,
 .ar-header .header-nav-folder-item a{
-  display:inline-flex;
-  align-items:center;
-  transition: transform .18s ease, color .15s ease;
-  will-change: transform;
+  display:inline-flex; align-items:center;
+  transition:transform .18s ease, color .15s ease; will-change:transform;
 }
 .ar-header .header-nav a:hover,
 .ar-header .header-nav a:focus,
@@ -247,71 +181,19 @@
 .ar-header .header-nav-folder-item a:hover,
 .ar-header .header-nav-folder-item a:focus{ transform:scale(1.06); }
 
-/* Active state: bold, no underline */
-.ar-header .header-nav-item--active > a,
-.ar-header .header-nav-item--active > .header-nav-folder-title > .header-nav-folder-title-text{
-  font-weight:600; text-decoration:none;
-}
-
-/* === Always-on-top submenu (desktop) === */
+/* Always-on-top submenu (desktop) */
 @media (min-width:1025px){
-  /* prevent clipping anywhere in the header */
   .ar-header,
   .ar-header .header,
   .ar-header .header-inner,
   .ar-header .header-nav-wrapper,
-  .ar-header .header-nav { overflow: visible !important; }
-
-  /* panel above everything */
+  .ar-header .header-nav{ overflow:visible !important; }
   .ar-header .header-nav-folder-content{
-    position: relative;                 /* SS layout-friendly */
-    z-index: 1000 !important;           /* above band & nav */
-    background: var(--ar-navy) !important;
+    position:relative; z-index:1000 !important;
+    background:var(--ar-navy) !important;
     border:0 !important; box-shadow:none !important;
   }
-
-  /* items ride the same layer */
-  .ar-header .header-nav-folder-item,
-  .ar-header .header-nav-folder-item a{
-    position: relative; z-index: inherit;
-  }
-}
-
-/* Belt & suspenders: no legacy thin stripe may overlay */
-.ar-header::after,
-.ar-header .header::after,
-.ar-header .Header::after{ content:none !important; height:0 !important; }
-
-/* 1) Kill the first section's top divider/stripe entirely */
-.ar-header ~ main#page .sections > .page-section:first-of-type .section-border,
-.ar-header ~ main#page .sections > .page-section:first-of-type .section-borders,
-.ar-header ~ main#page .sections > .page-section:first-of-type .section-divider {
-  display: none !important;
-  height: 0 !important;
-  margin: 0 !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  pointer-events: none !important;
-}
-
-/* 2) Keep the dropdown panel way above anything from the page sections */
-@media (min-width:1025px){
-  .ar-header .header-nav-folder-content{
-    position: relative;            /* SS-friendly */
-    z-index: 1000 !important;      /* above bands, borders, etc. */
-    background: var(--ar-navy) !important;
-  }
-}
-
-/* 3) Belt & suspenders: no legacy thin stripe on the header itself */
-.ar-header::after,
-.ar-header .header::after,
-.ar-header .Header::after{
-  content: none !important;
-  height: 0 !important;
 }
 
 /* Remove Squarespace default header stripe */
-.header-border {
-  border: none !important;
-}
+.header-border{ border:none !important; }
