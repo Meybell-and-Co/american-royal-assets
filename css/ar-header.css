@@ -185,6 +185,17 @@
 .ar-header .header-inner{ overflow-x: clip; }
 html, body{ overflow-x: clip; }
 
+/* Remove padding below header on all pages */
+.header-inner { padding: 0 !important; }
+
+/* Use Veneer font for all headings except inside .ar-header */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Veneer', sans-serif !important;
+}
+.ar-header h1, .ar-header h2, .ar-header h3, .ar-header h4, .ar-header h5, .ar-header h6 {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
 /* ================================
    Contribute Button CTA
    ================================ */
