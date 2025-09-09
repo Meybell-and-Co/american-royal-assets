@@ -193,9 +193,7 @@ html, body{ overflow-x: clip; }
 
 /* ---------- Desktop: floating CTA ---------- */
 @media (min-width:1025px){
-  .ar-header nav.header-nav-list {
-    position: relative; /* so we can anchor off it */
-  }
+  .ar-header{ position: relative; }
 
   .ar-header nav.header-nav-list a[href*="contribute"],
   .ar-header nav.header-nav-list a[href*="donate"],
@@ -204,10 +202,8 @@ html, body{ overflow-x: clip; }
   .ar-header [data-animation-role="header-element"][href*="donate"],
   .ar-header [data-animation-role="header-element"][href*="donorbox"]{
     position: absolute;
-    left: 100%;                 /* start at far right of nav list */
-    margin-left: 1rem;          /* gap between last item and button */
-    top: 50%;                   /* vertical anchor point: middle of nav row */
-    transform: translateY(-50%);/* center vertically on nav row */
+    right: 2rem;              /* distance from right edge – tweak this */
+    top: 3rem;                /* distance from top edge – tweak this */
     z-index: 5;
 
     background: var(--ar-cta) !important;
@@ -217,12 +213,14 @@ html, body{ overflow-x: clip; }
     font-size: 1.6rem;                /* ~60% larger */
     text-transform: uppercase;
     letter-spacing: .04em;
-    padding: 1em 1.6em !important;    /* scale padding */
+    
+    padding: 0.5em 1.6em !important;    /* scale padding */
     border-radius: 9999px !important;
-    min-height: 52px; line-height: 1;
+    line-height: 1;
     white-space: nowrap;
     display: inline-flex !important; align-items: center; justify-content: center;
     text-decoration: none !important;
+    
     box-shadow: 0 2px 0 rgba(0,0,0,.18);
     transition:
       transform .2s ease,
@@ -231,21 +229,32 @@ html, body{ overflow-x: clip; }
       font-size .2s ease;
   }
 
-  .ar-header nav.header-nav-list a[href*="contribute"]:hover,
-  .ar-header nav.header-nav-list a[href*="donate"]:hover,
-  .ar-header nav.header-nav-list a[href*="donorbox"]:hover{
-    background: var(--ar-cta-dark) !important;
-    font-size: 1.75rem; /* hover bump */
-    transform: translateY(-50%) scale(1.08);
-    box-shadow: 0 4px 10px rgba(0,0,0,.22);
-  }
+/* Hover: enlarge + keep red background */
+.ar-header nav.header-nav-list a[href*="contribute"]:hover,
+.ar-header nav.header-nav-list a[href*="donate"]:hover,
+.ar-header nav.header-nav-list a[href*="donorbox"]:hover,
+.ar-header [data-animation-role="header-element"][href*="contribute"]:hover,
+.ar-header [data-animation-role="header-element"][href*="donate"]:hover,
+.ar-header [data-animation-role="header-element"][href*="donorbox"]:hover{
+  background: var(--ar-cta-dark) !important; /* stay red */
+  color: #fff !important;                   /* force text white */
+  font-size: 1.75rem;
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,.22);
+}
 
-  .ar-header nav.header-nav-list a[href*="contribute"]:active,
-  .ar-header nav.header-nav-list a[href*="donate"]:active,
-  .ar-header nav.header-nav-list a[href*="donorbox"]:active{
-    transform: translateY(-50%) scale(1);
-    box-shadow: 0 1px 0 rgba(0,0,0,.18);
-  }
+/* Active: pressed state, still solid red */
+.ar-header nav.header-nav-list a[href*="contribute"]:active,
+.ar-header nav.header-nav-list a[href*="donate"]:active,
+.ar-header nav.header-nav-list a[href*="donorbox"]:active,
+.ar-header [data-animation-role="header-element"][href*="contribute"]:active,
+.ar-header [data-animation-role="header-element"][href*="donate"]:active,
+.ar-header [data-animation-role="header-element"][href*="donorbox"]:active{
+  background: var(--ar-cta) !important;  /* lock back to base red */
+  color: #fff !important;
+  transform: scale(1);
+  box-shadow: 0 1px 0 rgba(0,0,0,.18);
+}
 
   .ar-header nav.header-nav-list a[href*="contribute"]:focus-visible,
   .ar-header nav.header-nav-list a[href*="donate"]:focus-visible,
