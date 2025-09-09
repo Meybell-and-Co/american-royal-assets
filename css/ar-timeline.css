@@ -1,276 +1,294 @@
-/* === American Royal Timeline CSS — Fix Pack v1 === */
-:root {
-  --ar-navy: #002D6A;
-  --ar-light-blue: #92B8E2;
-  --ar-off-white: #F7F6FB;
-  --ar-accent: #BE3526;
-  --dot-size: 20px;
-  --active-dot-color: var(--ar-accent);
-  --inactive-dot-color: #ccc;
-  --progress-height: 7px;
-  --font-p1: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+/* =========================================================
+   AMERICAN ROYAL — Timeline CSS (clean, commented)
+   Purpose: styles the horizontal milestone timeline
+   ========================================================= */
+
+/* =========================
+   00 • Tokens / variables
+   ========================= */
+:root{
+  --ar-navy:#002D6A;
+  --ar-light-blue:#92B8E2;
+  --ar-off-white:#F7F6FB;
+  --ar-accent:#BE3526;
+
+  --dot-size:20px;
+  --inactive-dot:#ccc;
+  --active-dot:var(--ar-accent);
+
+  --progress-h:7px;
+
+  /* fallback text stack (cards override to Outfit) */
+  --font-p1:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-/* Wrapper */
-.timeline-progress-wrapper {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 900px;
-  padding: 0 0 32px;
+/* =========================================
+   10 • Wrapper (progress + dots container)
+   - centers the progress UI under the track
+   ========================================= */
+.timeline-progress-wrapper{
+  position:relative;
+  margin:0 auto;
+  width:100%;
+  max-width:900px;
+  padding:0 0 32px;
 }
 
-/* Progress bar (visible) */
-.timeline-progress-bar-bg {
-  background: var(--ar-navy);
-  border-radius: 5px;
-  height: var(--progress-height);
-  position: relative;
-  width: 100%;
+/* ===========================
+   20 • Progress bar
+   - shows scroll progress
+   =========================== */
+.timeline-progress-bar-bg{
+  background:var(--ar-navy);
+  border-radius:5px;
+  height:var(--progress-h);
+  position:relative;
+  width:100%;
 }
-.timeline-progress-bar-fill {
-  background: var(--ar-light-blue);
-  border-radius: 5px;
-  height: var(--progress-height);
-  width: 0;
-  transition: width .3s;
-  position: absolute; top: 0; left: 0;
+.timeline-progress-bar-fill{
+  background:var(--ar-light-blue);
+  border-radius:5px;
+  height:var(--progress-h);
+  width:0;
+  transition:width .3s;
+  position:absolute; top:0; left:0;
 }
 
-/* Dots row */
+/* =========================================
+   30 • Dots row
+   - maps to cards; highlights active card
+   ========================================= */
 .timeline-dots,
-.timeline-progress-dots {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transform: translateY(10px);
-  pointer-events: none;
-  padding: 0 8px;
-  height: 40px;
-  z-index: 2;
+.timeline-progress-dots{
+  position:absolute;
+  left:0; top:100%;
+  width:100%;
+  display:flex; justify-content:space-between; align-items:center;
+  transform:translateY(10px);
+  pointer-events:none;
+  padding:0 8px;
+  height:40px;
+  z-index:2;
+}
+.timeline-dot{
+  width:var(--dot-size); height:var(--dot-size);
+  border-radius:50%;
+  background:var(--ar-off-white);
+  border:2.5px solid var(--ar-navy);
+  margin:0 .5vw;
+  box-shadow:0 2px 4px rgba(0,0,0,.06);
+  cursor:pointer; pointer-events:all;
+  transition:background .18s,border .18s,transform .18s;
+}
+.timeline-dot.active{
+  background:var(--active-dot);
+  border-color:var(--active-dot);
+  transform:scale(1.18);
 }
 
-/* Dots */
-.timeline-dot {
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 50%;
-  background: var(--ar-off-white);
-  border: 2.5px solid var(--ar-navy);
-  margin: 0 .5vw;
-  box-shadow: 0 2px 4px rgba(0,0,0,.06);
-  cursor: pointer;
-  pointer-events: all;
-  transition: background .18s, border .18s, transform .18s;
-}
-.timeline-dot.active {
-  background: var(--active-dot-color);
-  border-color: var(--active-dot-color);
-  transform: scale(1.18);
-}
-
-/* Track + container */
+/* =========================================
+   40 • Track & scroll container
+   - lays out the horizontal card list
+   ========================================= */
 .timeline-container,
-.timeline-content { background: var(--ar-off-white) !important; }
+.timeline-content{ background:var(--ar-off-white) !important; }
 
-.timeline-container {
-  display: flex; align-items: center; position: relative;
-  width: 100%; margin: 0 auto 32px auto; max-width: 1600px;
-  justify-content: center; min-height: 440px;
+.timeline-container{
+  display:flex; align-items:center; position:relative;
+  width:100%; margin:0 auto 32px auto; max-width:1600px;
+  justify-content:center; min-height:440px;
 }
-
-.timeline-content {
-  position: relative; display: flex; gap: 24px; overflow-x: auto;
-  scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;
-  flex: 1 1 auto; align-items: stretch; min-width: 0; z-index: 1;
+.timeline-content{
+  position:relative; display:flex; gap:24px;
+  overflow-x:auto; scroll-behavior:smooth;
+  scrollbar-width:none; -ms-overflow-style:none;
+  flex:1 1 auto; align-items:stretch; min-width:0; z-index:1;
 }
-.timeline-content::-webkit-scrollbar { display: none; }
+.timeline-content::-webkit-scrollbar{ display:none; }
 
-/* Cards (standardize on .timeline-item; alias .timeline-card) */
+/* ===========================
+   50 • Cards (items)
+   - styles the milestone cards
+   - aliases .timeline-card for safety
+   =========================== */
 .timeline-item,
-.timeline-card {
-  min-width: 320px; max-width: 340px; min-height: 480px;
-  background: linear-gradient(145deg, #002d6a, #184675);
-  color: var(--ar-off-white);
-  border-radius: 24px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  padding: 32px 24px 24px;
-  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  flex-shrink: 0;
-  transition: box-shadow .15s, border-color .15s;
-  border: 2px solid transparent;
-  position: relative;
-}
+.timeline-card{
+  /* shape */
+  min-width:320px; max-width:340px; min-height:480px;
+  border-radius:24px; border:2px solid transparent;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  padding:32px 24px 24px;
+  flex-shrink:0; position:relative;
+  transition:box-shadow .15s,border-color .15s;
 
-/* Update Veneer header font to AR off-white */
-.timeline-item h3,
-.timeline-card h3 {
-  font-family: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color: var(--ar-off-white);
-  line-height: 1.1;
-  margin: 0 0 .4rem 0;
-}
+  /* skin */
+  background:linear-gradient(145deg,#002d6a,#184675);
+  color:var(--ar-off-white);
 
+  /* type */
+  font-family:"Outfit", var(--font-p1);
+}
+/* focuses the card for keyboard users */
 .timeline-item:focus-within, .timeline-item:focus,
-.timeline-card:focus-within, .timeline-card:focus {
-  border-color: var(--ar-accent);
-  box-shadow: 0 8px 28px rgba(190,53,38,.14);
+.timeline-card:focus-within, .timeline-card:focus{
+  border-color:var(--ar-accent);
+  box-shadow:0 8px 28px rgba(190,53,38,.14);
 }
 
-/* Inner typography helpers (optional) */
-.timeline-month { font-weight: 500; font-size: .9rem; color: var(--ar-light-blue); margin-bottom: .5rem; }
-.timeline-title { font-weight: 700; font-size: 1.2rem; margin-bottom: .5rem; }
-.timeline-description { font-size: .95rem; line-height: 1.4; font-family: var(--font-p1); }
+/* =========================================
+   55 • Card typography helpers
+   - fixes header color and families
+   ========================================= */
+.timeline-item h3,
+.timeline-item h3 a,
+.timeline-card h3,
+.timeline-card h3 a{
+  font-family:"Veneer","Outfit",var(--font-p1) !important; /* fixes header family */
+  color:var(--ar-off-white) !important;                     /* fixes header color */
+  line-height:1.1;
+  margin:0 0 .4rem 0;
+}
+.timeline-month{ font-weight:500; font-size:.9rem; color:var(--ar-light-blue); margin-bottom:.5rem; }
+.timeline-title{ font-weight:700; font-size:1.2rem; margin-bottom:.5rem; }
+.timeline-description{ font-size:.95rem; line-height:1.4; font-family:var(--font-p1); }
 
-/* Buffer at edges for centering arrows/fades */
+/* ==================================================
+   60 • Edge buffers (fake items) & edge fades
+   - fixes centered appearance / soft edges
+   ================================================== */
 .timeline-item.timeline-buffer,
-.timeline-card.timeline-buffer {
-  background: transparent !important; box-shadow: none !important; border: none !important;
-  pointer-events: none; min-width: 340px; max-width: 340px;
+.timeline-card.timeline-buffer{
+  background:transparent !important;
+  box-shadow:none !important; border:none !important;
+  pointer-events:none;
+  min-width:340px; max-width:340px; /* trimmed further on wide screens */
+}
+.timeline-fade{
+  position:absolute; top:0; bottom:0; width:120px;
+  z-index:9; pointer-events:none;
+}
+.timeline-fade-left{
+  left:0;
+  background:linear-gradient(to right,
+    var(--ar-off-white) 0%,
+    var(--ar-off-white) 55%,
+    rgba(247,246,251,.17) 85%,
+    rgba(247,246,251,0) 100%);
+}
+.timeline-fade-right{
+  right:0;
+  background:linear-gradient(to left,
+    var(--ar-off-white) 0%,
+    var(--ar-off-white) 55%,
+    rgba(247,246,251,.17) 85%,
+    rgba(247,246,251,0) 100%);
 }
 
-/* Arrows */
-.timeline-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  z-index: 20; background: none; border: none; outline: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity .15s; opacity: .8; min-width: 60px; min-height: 40px;
-  max-width: 120px; max-height: 120px; padding: 0;
+/* =========================================
+   70 • Arrows
+   - fixes nav hit-targets and micro-motion
+   ========================================= */
+.timeline-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:20; background:none; border:none; outline:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity .15s; opacity:.8; inline-size:96 px; block-size: 96px;
+  min-width:60px; min-height:40px; max-width:120px; max-height:120px;
+  padding:0;
 }
-.timeline-arrow-left { left: 0; }
-.timeline-arrow-right { right: 0; }
-.timeline-arrow:active, .timeline-arrow:focus { opacity: 1; }
-.timeline-arrow[aria-disabled="true"] { opacity: .25; pointer-events: none; }
-.timeline-arrow img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.timeline-arrow-left{ left:0; }
+.timeline-arrow-right{ right:0; }
+.timeline-arrow:active, .timeline-arrow:focus{ opacity:1; }
+.timeline-arrow[aria-disabled="true"]{ opacity:.25; pointer-events:none; }
+.timeline-arrow img{ width:100%; height:100%; object-fit:contain; display:block; }
 
-/* Edge fades */
-.timeline-fade { position: absolute; top: 0; bottom: 0; width: 120px; z-index: 9; pointer-events: none; }
-.timeline-fade-left {
-  left: 0; background: linear-gradient(to right,var(--ar-off-white) 0%,var(--ar-off-white) 55%,rgba(247,246,251,.17) 85%,rgba(247,246,251,0) 100%);
+/* =========================================
+   80 • Visibility / footer logo
+   - fixes crown centering and spacing
+   ========================================= */
+@media (max-width:900px){ .timeline-desktop{ display:none !important; } }
+.timeline-desktop{ display:block; }
+
+.timeline-loaded-fade{ opacity:0; transition:opacity .5s cubic-bezier(.52,2,.45,.77); }
+.timeline-loaded-fade.timeline-show{ opacity:1; }
+
+.ar-footer-logo{
+  margin:48px auto 0;      /* fixes space from progress bar */
+  width:100%; max-width:none;
+  display:flex; justify-content:center;
+  opacity:.75;
 }
-.timeline-fade-right {
-  right: 0; background: linear-gradient(to left,var(--ar-off-white) 0%,var(--ar-off-white) 55%,rgba(247,246,251,.17) 85%,rgba(247,246,251,0) 100%);
+.ar-footer-logo img{
+  max-width:220px; width:100%; height:auto;
+  display:block; margin:0 auto; opacity:.3;
 }
 
-/* Visibility + footer */
-@media (max-width:900px){ .timeline-desktop { display: none !important; } }
-.timeline-desktop { display: block; }
-.timeline-loaded-fade { opacity: 0; transition: opacity .5s cubic-bezier(.52,2,.45,.77); }
-.timeline-loaded-fade.timeline-show { opacity: 1; }
-.ar-footer-logo { margin-top: 48px; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
-.ar-footer-logo img { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; opacity: .3; justify-content: center; }
-
+/* =========================================
+   90 • Responsive tweaks
+   - shows more cards on wider screens
+   - keeps mobile readable
+   ========================================= */
 @media (max-width:900px){
-  .ar-footer-logo { margin-top: 48px; }
-}
-
-/* Responsive tweaks */
-@media (max-width:900px){
-  .timeline-container { max-width: 98vw; }
+  .timeline-container{ max-width:98vw; }
   .timeline-item, .timeline-card,
-  .timeline-item.timeline-buffer, .timeline-card.timeline-buffer {
-    min-width: 84vw; max-width: 88vw; font-size: .97em; padding: 22px 9px 16px 13px;
+  .timeline-item.timeline-buffer, .timeline-card.timeline-buffer{
+    min-width:84vw; max-width:88vw;
+    font-size:.97em; padding:22px 9px 16px 13px;
   }
-  .timeline-fade { width: 16vw; }
+  .timeline-fade{ width:16vw; }
+  .ar-footer-logo{ margin-top:32px; }  /* fixes mobile crown spacing */
 }
 @media (max-width:600px){
-  .timeline-progress-bar-bg, .timeline-progress-wrapper { max-width: 96vw; }
-  .timeline-dot { width: 16px; height: 16px; margin: 0 .2vw; }
-  .timeline-item, .timeline-card {
-    width: 90vw; min-width: 90vw; max-width: 90vw;
-    height: 260px; min-height: 260px; margin-right: .5rem;
+  .timeline-progress-bar-bg, .timeline-progress-wrapper{ max-width:96vw; }
+  .timeline-dot{ width:16px; height:16px; margin:0 .2vw; }
+  .timeline-item, .timeline-card{
+    width:90vw; min-width:90vw; max-width:90vw;
+    height:260px; min-height:260px; margin-right:.5rem;
   }
-  .timeline-fade { width: 12vw; }
+  .timeline-fade{ width:12vw; }
 }
 
-/* Animations */
-@keyframes arrow-bop-left {
+/* -------------------------------------------------
+   95 • Wide-screen tuning (shows 2–3+ cards)
+   - fixes cramped view by slimming cards & fades
+   ------------------------------------------------- */
+@media (min-width:1200px){
+  .timeline-container{ max-width:100%; }
+  .timeline-content{ gap:16px; padding-inline:12px; } /* fixes tight packing */
+  .timeline-item, .timeline-card{ min-width:300px; max-width:320px; } /* fixes multi-card view */
+  .timeline-fade{ width:72px; }
+  .timeline-item.timeline-buffer, .timeline-card.timeline-buffer{ min-width:24px; max-width:24px; }
+}
+@media (min-width:1440px){
+  .timeline-item, .timeline-card{ min-width:280px; max-width:300px; } /* fixes 3-up on XL */
+  .timeline-fade{ width:60px; }
+}
+
+/* =========================
+   99 • Motion preferences
+   - respects reduced motion
+   ========================= */
+@keyframes arrow-bop-left{
   0%{transform:translateY(-50%) scale(1) translateX(0);}
   30%{transform:translateY(-50%) scale(1.13) translateX(-16px);}
   70%{transform:translateY(-50%) scale(1.06) translateX(-7px);}
   100%{transform:translateY(-50%) scale(1) translateX(0);}
 }
-@keyframes arrow-bop-right {
+@keyframes arrow-bop-right{
   0%{transform:translateY(-50%) scale(1) translateX(0);}
   30%{transform:translateY(-50%) scale(1.13) translateX(16px);}
   70%{transform:translateY(-50%) scale(1.06) translateX(7px);}
   100%{transform:translateY(-50%) scale(1) translateX(0);}
 }
-.timeline-arrow.bopping-left { animation: arrow-bop-left .38s cubic-bezier(.52,2,.45,.77) 1; }
-.timeline-arrow.bopping-right { animation: arrow-bop-right .38s cubic-bezier(.52,2,.45,.77) 1; }
+.timeline-arrow.bopping-left{ animation:arrow-bop-left .38s cubic-bezier(.52,2,.45,.77) 1; }
+.timeline-arrow.bopping-right{ animation:arrow-bop-right .38s cubic-bezier(.52,2,.45,.77) 1; }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion:reduce){
   .timeline-arrow.bopping-left,
-  .timeline-arrow.bopping-right { animation: none; }
-  .timeline-content { scroll-behavior: auto; }
-}
-/* Card titles: force AR off-white even if wrapped in a link */
-.timeline-item h3,
-.timeline-item h3 a,
-.timeline-card h3,
-.timeline-card h3 a {
-  color: var(--ar-off-white) !important;
-  font-family: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  .timeline-arrow.bopping-right{ animation:none; } /* fixes motion for a11y */
+  .timeline-content{ scroll-behavior:auto; }      /* fixes smooth scroll opt-out */
 }
 
-/* Ensure all body copy on the card is Outfit (win against theme globals) */
-.timeline-item,
-.timeline-card {
-  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
-}
-/* Full-width wrapper; center contents */
-.ar-footer-logo {
-  margin: 48px auto 0;
-  width: 100%;           /* was 220px */
-  max-width: none;       /* remove the 28vw cap */
-  display: flex;
-  justify-content: center;
-  opacity: .75;
-}
-
-/* Keep the image constrained and truly centered */
-.ar-footer-logo img {
-  max-width: 220px;      /* size control lives on the img */
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  opacity: .3;
-}
-
-/* Mobile spacing */
-@media (max-width:900px){
-  .ar-footer-logo { margin-top: 32px; }
-}
-/* === Show more cards per view (desktop+) === */
-@media (min-width: 1200px){
-  /* Let the track breathe */
-  .timeline-container { max-width: 100%; }
-  .timeline-content { gap: 16px; padding-inline: 12px; }
-
-  /* Make cards skinnier so 2–3 fit */
-  .timeline-item,
-  .timeline-card {
-    min-width: 300px;   /* tweak: 280–320 */
-    max-width: 320px;
-  }
-
-  /* Trim the fades and edge buffers (these eat horizontal space) */
-  .timeline-fade { width: 72px; }  /* was 120px */
-  .timeline-item.timeline-buffer,
-  .timeline-card.timeline-buffer {
-    min-width: 24px; max-width: 24px;  /* was 340px */
-  }
-}
-
-/* On very wide screens, show even more */
-@media (min-width: 1440px){
-  .timeline-item,
-  .timeline-card { min-width: 280px; max-width: 300px; }
-  .timeline-fade { width: 60px; }
-}
+/* FOUC guard for timeline */
+.timeline-root { opacity: 0; }
+.timeline-root.is-ready { opacity: 1; transition: opacity .2s ease; }

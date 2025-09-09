@@ -1,15 +1,46 @@
 // @ts-check
-document.addEventListener("DOMContentLoaded", () => {
+
+/** Reveals the component after DOM + (ideally) fonts are ready */
+function markTimelineReady() {
+  const root = document.querySelector('.timeline-root');
+  if (!root) return;
+
+  // Avoid double toggles
+  if (root.classList.contains('is-ready')) return;
+
+  // Wait for fonts if available; fall back quickly
+  const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  const timeout = new Promise(r => setTimeout(r, 150));
+
+  Promise.race([fontsReady, timeout]).then(() => {
+    root.classList.add('is-ready');
+  });
+}
+
+/** Main initializer (idempotent) */
+function initTimeline() {
   try {
+    // Re-init guard: prevent duplicate listeners on AJAX page loads
+    const root = document.querySelector('.timeline-root');
+    if (!root || root.hasAttribute('data-timeline-initialized')) {
+      markTimelineReady(); // still reveal if we can
+      return;
+    }
+    root.setAttribute('data-timeline-initialized', 'true');
+
     /** @type {HTMLElement|null} */
     const block = document.querySelector(".timeline-desktop.timeline-loaded-fade");
-    if (!block) return;
+    if (!block) { markTimelineReady(); return; }
 
     // Ensure it's visible even if animations fail
     block.style.opacity = "1";
 
     // Don’t run the interactions on narrow screens
-    if (window.innerWidth <= 900) return;
+    if (window.innerWidth <= 900) { 
+      // Still reveal for mobile
+      markTimelineReady();
+      return; 
+    }
 
     /** @type {HTMLElement|null} */
     const scroller = document.querySelector(".timeline-content");
@@ -26,7 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
     /** @type {HTMLElement|null} */
     const dotsWrap   = document.querySelector(".timeline-dots");
 
-    if (!scroller || !leftArrow || !rightArrow || !dotsWrap || realItems.length === 0) return;
+    if (!scroller || !leftArrow || !rightArrow || !dotsWrap || realItems.length === 0) {
+      markTimelineReady();
+      return;
+    }
 
     // Build dots (one per real card)
     dotsWrap.innerHTML = "";
@@ -119,9 +153,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+    // Finally reveal the component
+    markTimelineReady();
+
   } catch (e) {
     const fallback = document.querySelector(".timeline-desktop.timeline-loaded-fade");
     if (fallback) /** @type {HTMLElement} */(fallback).style.opacity = "1";
     console.warn("Timeline init failed:", e);
+    markTimelineReady();
   }
-});
+}
+
+// Boot on DOM load and Squarespace AJAX navigations
+document.addEventListener("DOMContentLoaded", initTimeline);
+document.addEventListener("sqs:pageLoaded", initTimeline);
+document.addEventListener("sqs-page-async-load", initTimeline);
