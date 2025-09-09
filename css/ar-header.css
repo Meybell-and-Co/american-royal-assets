@@ -82,23 +82,76 @@
 .ar-header .header-title-logo img{ display:block; height:auto; max-height:120px; margin-top:16px; }
 @media (max-width:768px){ .ar-header .header-title-logo img{ max-height:80px; margin-top:8px; } }
 
-/* CTA: Contribute */
-.ar-header .header-nav-item a[href*="contribute"]{
-  background:var(--ar-cta);
-  color:#fff;
-  font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  font-weight:600;
-  font-size:1rem;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-  padding:.6em 1.1em;
-  border-radius:4px;
-  min-height:44px;
-  display:inline-flex; align-items:center; justify-content:center;
-  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+/* ================================
+   Contribute/Donate CTA (Header + Mobile)
+   ================================ */
+
+/* Desktop/top-nav: match by URL fragment so copy changes don't break it */
+.ar-header .header-nav-item a[href*="contribute"],
+.ar-header .header-nav-item a[href*="donate"],
+.ar-header .header-nav-item a[href*="donorbox"]{
+  background: var(--ar-cta);
+  color: #fff !important;
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: .6em 1.1em;
+  border-radius: 9999px;           /* pill shape for consistency with brand */
+  min-height: 44px;                /* accessible tap target */
+  line-height: 1;
+  white-space: nowrap;             /* keep it on one line */
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
-.ar-header .header-nav-item a[href*="contribute"]:hover{ transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.18); }
-.ar-header .header-nav-item a[href*="contribute"]:focus{ outline:2px solid #fff; outline-offset:2px; }
+
+.ar-header .header-nav-item a[href*="contribute"]:hover,
+.ar-header .header-nav-item a[href*="donate"]:hover,
+.ar-header .header-nav-item a[href*="donorbox"]:hover{
+  background: var(--ar-cta-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 rgba(0,0,0,.22);
+}
+
+.ar-header .header-nav-item a[href*="contribute"]:active,
+.ar-header .header-nav-item a[href*="donate"]:active,
+.ar-header .header-nav-item a[href*="donorbox"]:active{
+  transform: translateY(0);
+  box-shadow: 0 1px 0 rgba(0,0,0,.18);
+}
+
+/* Use :focus-visible so keyboard users get a ring, mouse users don't */
+.ar-header .header-nav-item a[href*="contribute"]:focus-visible,
+.ar-header .header-nav-item a[href*="donate"]:focus-visible,
+.ar-header .header-nav-item a[href*="donorbox"]:focus-visible{
+  outline: 2px solid var(--ar-sky);
+  outline-offset: 3px;
+  border-radius: 9999px;
+}
+
+/* Mobile menu version (Squarespace's drawer) */
+.sqs-mobile-nav .header-menu-nav a[href*="contribute"],
+.sqs-mobile-nav .header-menu-nav a[href*="donate"],
+.sqs-mobile-nav .header-menu-nav a[href*="donorbox"]{
+  background: var(--ar-cta);
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: .7rem;
+  padding: .9rem 1.05rem;
+  line-height: 1;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .ar-header .header-nav-item a[href*="contribute"],
+  .ar-header .header-nav-item a[href*="donate"],
+  .ar-header .header-nav-item a[href*="donorbox"]{
+    transition: none;
+  }
+}
 
 /* Dropdown reveal animation (scoped) */
 @keyframes ar-slideFadeIn{ from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
