@@ -5,7 +5,7 @@
   --ar-light-blue: #92B8E2;
   --ar-off-white: #F7F6FB;
   --ar-accent: #BE3526;
-  --dot-size: 12px;
+  --dot-size: 20px;
   --active-dot-color: var(--ar-navy);
   --inactive-dot-color: #ccc;
   --progress-height: 4px;
@@ -54,6 +54,11 @@
   background-color: var(--inactive-dot-color);
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 47, 108, 0.12);
+  border: 3px solid #fff;
+  display: inline-block;
+  position: relative;
+  z-index: 2;
 }
 
 .timeline-dot.active {
@@ -65,11 +70,18 @@
   color: var(--ar-off-white);
   border-radius: 1rem;
   padding: 1.5rem;
-  width: 300px;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  height: 340px;
+  min-height: 340px;
   flex: 0 0 auto;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   font-family: var(--font-p1, sans-serif);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .timeline-container {
@@ -187,11 +199,18 @@
 /* Dots: add the class your JS uses, but keep your old one for safety */
 .timeline-dots,
 .timeline-progress-dots { /* alias so both class names work */
-  position: absolute; left: 0; top: 50%; width: 100%;
-  display: flex; justify-content: space-between;
-  transform: translateY(-50%); pointer-events: none;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: none;
+  pointer-events: none;
   padding: 0 8px;
-}
+  height: 40px;
+  z-index: 1;
 
 .timeline-dot {
   width: 20px; height: 20px; border-radius: 50%;
@@ -241,7 +260,15 @@
 }
 @media (max-width:600px){
   .timeline-progress-bar-bg, .timeline-progress-wrapper { max-width: 96vw; }
-  .timeline-dot { width: 13px; height: 13px; margin: 0 .2vw; }
+  .timeline-dot { width: 16px; height: 16px; margin: 0 .2vw; }
+  .timeline-card {
+    width: 90vw;
+    min-width: 90vw;
+    max-width: 90vw;
+    height: 260px;
+    min-height: 260px;
+    margin-right: 0.5rem;
+  }
   .timeline-fade { width: 12vw; }
 }
 
@@ -250,4 +277,5 @@
   .timeline-arrow.bopping-left,
   .timeline-arrow.bopping-right { animation: none; }
   .timeline-content { scroll-behavior: auto; }
+}
 }
