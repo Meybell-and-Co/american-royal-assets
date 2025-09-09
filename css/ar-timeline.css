@@ -247,3 +247,30 @@
 @media (max-width:900px){
   .ar-footer-logo { margin-top: 32px; }
 }
+/* === Show more cards per view (desktop+) === */
+@media (min-width: 1200px){
+  /* Let the track breathe */
+  .timeline-container { max-width: 100%; }
+  .timeline-content { gap: 16px; padding-inline: 12px; }
+
+  /* Make cards skinnier so 2–3 fit */
+  .timeline-item,
+  .timeline-card {
+    min-width: 300px;   /* tweak: 280–320 */
+    max-width: 320px;
+  }
+
+  /* Trim the fades and edge buffers (these eat horizontal space) */
+  .timeline-fade { width: 72px; }  /* was 120px */
+  .timeline-item.timeline-buffer,
+  .timeline-card.timeline-buffer {
+    min-width: 24px; max-width: 24px;  /* was 340px */
+  }
+}
+
+/* On very wide screens, show even more */
+@media (min-width: 1440px){
+  .timeline-item,
+  .timeline-card { min-width: 280px; max-width: 300px; }
+  .timeline-fade { width: 60px; }
+}
