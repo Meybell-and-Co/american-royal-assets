@@ -180,6 +180,7 @@
 
 /* Remove Squarespace default header stripe */
 .header-border{ border:none !important; }
+.header-border{ border-width:0 !important; }
 
 /* Kill the tiny horizontal scrollbar from header layout overflow */
 .ar-header .header-inner{ overflow-x: clip; }
