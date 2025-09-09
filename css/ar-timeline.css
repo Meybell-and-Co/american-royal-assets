@@ -1,120 +1,77 @@
-/* === American Royal Timeline CSS === */
-
+/* === American Royal Timeline CSS — Fix Pack v1 === */
 :root {
   --ar-navy: #002D6A;
   --ar-light-blue: #92B8E2;
   --ar-off-white: #F7F6FB;
   --ar-accent: #BE3526;
   --dot-size: 20px;
-  --active-dot-color: var(--ar-navy);
+  --active-dot-color: var(--ar-accent);
   --inactive-dot-color: #ccc;
-  --progress-height: 4px;
+  --progress-height: 7px;
+  --font-p1: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+/* Wrapper */
 .timeline-progress-wrapper {
   position: relative;
-  margin: 2rem auto;
+  margin: 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px;
+  padding: 0 0 32px;
 }
 
+/* Progress bar (visible) */
+.timeline-progress-bar-bg {
+  background: var(--ar-navy);
+  border-radius: 5px;
+  height: var(--progress-height);
+  position: relative;
+  width: 100%;
+}
+.timeline-progress-bar-fill {
+  background: var(--ar-light-blue);
+  border-radius: 5px;
+  height: var(--progress-height);
+  width: 0;
+  transition: width .3s;
+  position: absolute; top: 0; left: 0;
+}
+
+/* Dots row */
+.timeline-dots,
 .timeline-progress-dots {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
+  align-items: center;
+  transform: translateY(10px);
+  pointer-events: none;
   padding: 0 8px;
+  height: 40px;
   z-index: 2;
 }
 
+/* Dots */
 .timeline-dot {
   width: var(--dot-size);
   height: var(--dot-size);
   border-radius: 50%;
-  background-color: var(--inactive-dot-color);
-  transition: background-color 0.3s;
-  box-shadow: 0 2px 6px rgba(0, 47, 108, 0.12);
-  border: 3px solid #fff;
-  display: inline-block;
-  margin: 0 8px;
-  position: relative;
-  z-index: 2;
-}
-
-.timeline-dot.active {
-  background-color: var(--active-dot-color);
-}
-
-.timeline-item {
-  background: linear-gradient(145deg, #002d6a, #184675);
-  color: var(--ar-off-white);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  width: 180px;
-  min-width: 180px;
-  max-width: 180px;
-  height: 340px;
-  min-height: 340px;
-  flex: 0 0 auto;
-  margin-right: 1rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  font-family: var(--font-p1, sans-serif);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.timeline-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 2rem;
-  margin-bottom: 3rem;
-}
-
-.timeline-container::-webkit-scrollbar {
-  display: none;
-}
-
-.timeline-month {
-  font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--ar-light-blue);
-  margin-bottom: 0.5rem;
-  font-family: var(--font-p1, sans-serif);
-}
-
-.timeline-title {
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.timeline-description {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  font-family: var(--font-p1, sans-serif);
-}
-
-/* Optional button styling if used */
-.timeline-item button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
   background: var(--ar-off-white);
-  color: var(--ar-navy);
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
+  border: 2.5px solid var(--ar-navy);
+  margin: 0 .5vw;
+  box-shadow: 0 2px 4px rgba(0,0,0,.06);
   cursor: pointer;
+  pointer-events: all;
+  transition: background .18s, border .18s, transform .18s;
 }
-
-.timeline-item button:hover {
-  background: var(--ar-light-blue);
-  color: #fff;
+.timeline-dot.active {
+  background: var(--active-dot-color);
+  border-color: var(--active-dot-color);
+  transform: scale(1.18);
 }
-/* === Compatibility patch for current timeline HTML/JS === */
 
 /* Track + container */
 .timeline-container,
@@ -133,21 +90,37 @@
 }
 .timeline-content::-webkit-scrollbar { display: none; }
 
-/* Cards (map to your new structure) */
-.timeline-item {
+/* Cards (standardize on .timeline-item; alias .timeline-card) */
+.timeline-item,
+.timeline-card {
   min-width: 420px; max-width: 440px;
-  background: var(--ar-navy) !important; color: #fff;
-  border-radius: 24px; box-shadow: 0 4px 24px rgba(0,0,0,.10) !important;
-  padding: 32px 24px 24px; font-family: inherit; flex-shrink: 0;
-  transition: box-shadow .15s; border: 2px solid transparent; position: relative;
+  background: linear-gradient(145deg, #002d6a, #184675);
+  color: var(--ar-off-white);
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 32px 24px 24px;
+  font-family: var(--font-p1);
+  flex-shrink: 0;
+  transition: box-shadow .15s, border-color .15s;
+  border: 2px solid transparent;
+  position: relative;
 }
-.timeline-item.timeline-buffer {
+.timeline-item:focus-within, .timeline-item:focus,
+.timeline-card:focus-within, .timeline-card:focus {
+  border-color: var(--ar-accent);
+  box-shadow: 0 8px 28px rgba(190,53,38,.14);
+}
+
+/* Inner typography helpers (optional) */
+.timeline-month { font-weight: 500; font-size: .9rem; color: var(--ar-light-blue); margin-bottom: .5rem; }
+.timeline-title { font-weight: 700; font-size: 1.2rem; margin-bottom: .5rem; }
+.timeline-description { font-size: .95rem; line-height: 1.4; font-family: var(--font-p1); }
+
+/* Buffer at edges for centering arrows/fades */
+.timeline-item.timeline-buffer,
+.timeline-card.timeline-buffer {
   background: transparent !important; box-shadow: none !important; border: none !important;
   pointer-events: none; min-width: 340px; max-width: 340px;
-}
-.timeline-item:focus-within, .timeline-item:focus {
-  border: 2px solid var(--ar-accent);
-  box-shadow: 0 8px 28px rgba(190,53,38,.14);
 }
 
 /* Arrows */
@@ -173,41 +146,31 @@
   right: 0; background: linear-gradient(to left,var(--ar-off-white) 0%,var(--ar-off-white) 55%,rgba(247,246,251,.17) 85%,rgba(247,246,251,0) 100%);
 }
 
-/* Progress bar (you already have these; kept for consistency) */
-.timeline-progress-wrapper { margin: 0 auto; width: 100%; max-width: 900px; padding: 0 0 32px; position: relative; }
-.timeline-progress-bar-bg { background: var(--ar-navy); border-radius: 5px; height: 7px; position: relative; width: 100%; }
-.timeline-progress-bar-fill { background: var(--ar-light-blue); border-radius: 5px; height: 7px; width: 0; transition: width .3s; position: absolute; top: 0; left: 0; }
+/* Visibility + footer */
+@media (max-width:900px){ .timeline-desktop { display: none !important; } }
+.timeline-desktop { display: block; }
+.timeline-loaded-fade { opacity: 0; transition: opacity .5s cubic-bezier(.52,2,.45,.77); }
+.timeline-loaded-fade.timeline-show { opacity: 1; }
+.ar-footer-logo { margin: 24px auto 0; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
+.ar-footer-logo img { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; opacity: .3; }
 
-/* Dots: add the class your JS uses, but keep your old one for safety */
-.timeline-dots,
-.timeline-progress-dots { /* alias so both class names work */
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transform: translateY(10px);
-  pointer-events: none;
-  padding: 0 8px;
-  height: 40px;
-  z-index: 2;
-
-.timeline-dot {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--ar-off-white);
-  border: 2.5px solid var(--ar-navy);
-  margin: 0 .5vw; box-shadow: 0 2px 4px rgba(0,0,0,.06);
-  cursor: pointer; pointer-events: all;
-  transition: background .18s, border .18s, transform .18s;
+/* Responsive tweaks */
+@media (max-width:900px){
+  .timeline-container { max-width: 98vw; }
+  .timeline-item, .timeline-card,
+  .timeline-item.timeline-buffer, .timeline-card.timeline-buffer {
+    min-width: 84vw; max-width: 88vw; font-size: .97em; padding: 22px 9px 16px 13px;
+  }
+  .timeline-fade { width: 16vw; }
 }
-
-/* Pick one active color — red (accent) to match your current timeline */
-.timeline-dot.active {
-  background: var(--ar-accent);
-  border-color: var(--ar-accent);
-  transform: scale(1.18);
+@media (max-width:600px){
+  .timeline-progress-bar-bg, .timeline-progress-wrapper { max-width: 96vw; }
+  .timeline-dot { width: 16px; height: 16px; margin: 0 .2vw; }
+  .timeline-item, .timeline-card {
+    width: 90vw; min-width: 90vw; max-width: 90vw;
+    height: 260px; min-height: 260px; margin-right: .5rem;
+  }
+  .timeline-fade { width: 12vw; }
 }
 
 /* Animations */
@@ -226,38 +189,9 @@
 .timeline-arrow.bopping-left { animation: arrow-bop-left .38s cubic-bezier(.52,2,.45,.77) 1; }
 .timeline-arrow.bopping-right { animation: arrow-bop-right .38s cubic-bezier(.52,2,.45,.77) 1; }
 
-/* Visibility + footer */
-@media (max-width:900px){ .timeline-desktop { display: none !important; } }
-.timeline-desktop { display: block; }
-.timeline-loaded-fade { opacity: 0; transition: opacity .5s cubic-bezier(.52,2,.45,.77); }
-.timeline-loaded-fade.timeline-show { opacity: 1; }
-.ar-footer-logo { margin: 24px auto 0; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
-.ar-footer-logo img { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; opacity: .3; }
-
-/* Responsive tweaks */
-@media (max-width:900px){
-  .timeline-container { max-width: 98vw; }
-  .timeline-item, .timeline-item.timeline-buffer { min-width: 84vw; max-width: 88vw; font-size: .97em; padding: 22px 9px 16px 13px; }
-  .timeline-fade { width: 16vw; }
-}
-@media (max-width:600px){
-  .timeline-progress-bar-bg, .timeline-progress-wrapper { max-width: 96vw; }
-  .timeline-dot { width: 16px; height: 16px; margin: 0 .2vw; }
-  .timeline-item {
-    width: 90vw;
-    min-width: 90vw;
-    max-width: 90vw;
-    height: 260px;
-    min-height: 260px;
-    margin-right: 0.5rem;
-  }
-  .timeline-fade { width: 12vw; }
-}
-
-/* Reduced motion respect */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .timeline-arrow.bopping-left,
   .timeline-arrow.bopping-right { animation: none; }
   .timeline-content { scroll-behavior: auto; }
-}
 }
