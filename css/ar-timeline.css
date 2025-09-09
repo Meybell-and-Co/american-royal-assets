@@ -18,16 +18,6 @@
   max-width: 1200px;
 }
 
-.timeline-progress-bar-bg {
-  display: none;
-}
-
-.timeline-progress-bar-fill {
-  display: none;
-  background-color: var(--ar-navy);
-  transition: width 0.4s ease-in-out;
-}
-
 .timeline-progress-dots {
   display: flex;
   justify-content: space-between;
@@ -57,7 +47,7 @@
   background-color: var(--active-dot-color);
 }
 
-.timeline-card {
+.timeline-item {
   background: linear-gradient(145deg, #002d6a, #184675);
   color: var(--ar-off-white);
   border-radius: 1rem;
@@ -109,7 +99,7 @@
 }
 
 /* Optional button styling if used */
-.timeline-card button {
+.timeline-item button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   background: var(--ar-off-white);
@@ -120,7 +110,7 @@
   cursor: pointer;
 }
 
-.timeline-card button:hover {
+.timeline-item button:hover {
   background: var(--ar-light-blue);
   color: #fff;
 }
@@ -253,7 +243,7 @@
 @media (max-width:600px){
   .timeline-progress-bar-bg, .timeline-progress-wrapper { max-width: 96vw; }
   .timeline-dot { width: 16px; height: 16px; margin: 0 .2vw; }
-  .timeline-card {
+  .timeline-item {
     width: 90vw;
     min-width: 90vw;
     max-width: 90vw;
