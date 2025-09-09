@@ -93,18 +93,28 @@
 /* Cards (standardize on .timeline-item; alias .timeline-card) */
 .timeline-item,
 .timeline-card {
-  min-width: 420px; max-width: 440px;
+  min-width: 320px; max-width: 340px; min-height: 480px;
   background: linear-gradient(145deg, #002d6a, #184675);
   color: var(--ar-off-white);
   border-radius: 24px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   padding: 32px 24px 24px;
-  font-family: var(--font-p1);
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   flex-shrink: 0;
   transition: box-shadow .15s, border-color .15s;
   border: 2px solid transparent;
   position: relative;
 }
+
+/* Update Veneer header font to AR off-white */
+.timeline-item h3,
+.timeline-card h3 {
+  font-family: "Veneer", "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ar-off-white);
+  line-height: 1.1;
+  margin: 0 0 .4rem 0;
+}
+
 .timeline-item:focus-within, .timeline-item:focus,
 .timeline-card:focus-within, .timeline-card:focus {
   border-color: var(--ar-accent);
@@ -151,8 +161,12 @@
 .timeline-desktop { display: block; }
 .timeline-loaded-fade { opacity: 0; transition: opacity .5s cubic-bezier(.52,2,.45,.77); }
 .timeline-loaded-fade.timeline-show { opacity: 1; }
-.ar-footer-logo { margin: 24px auto 0; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
+.ar-footer-logo { margin-top: 48px; width: 220px; max-width: 28vw; opacity: .75; display: flex; justify-content: center; }
 .ar-footer-logo img { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; opacity: .3; }
+
+@media (max-width:900px){
+  .ar-footer-logo { margin-top: 32px; }
+}
 
 /* Responsive tweaks */
 @media (max-width:900px){
