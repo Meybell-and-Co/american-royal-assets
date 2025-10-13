@@ -9,29 +9,42 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   blogDateElements.forEach(dateElement => {
-    // Get the current date text (e.g., "Jan 23" or "5/30/25")
-    const rawDate = dateElement.textContent.trim();
+    // Get the datetime attribute first (more reliable than text content)
+    let rawDate = dateElement.getAttribute('datetime') || dateElement.textContent.trim();
     
-    // Parse the date - handle different formats
+    console.log('Original date:', rawDate); // Debug log
+    
     let parsedDate;
     
-    // Try parsing as-is first
+    // Try parsing the datetime attribute or text content
     parsedDate = new Date(rawDate);
     
-    // If that fails, try with full year for short formats
-    if (isNaN(parsedDate)) {
-      const parts = rawDate.split('/');
-      if (parts.length === 3) {
-        const [month, day, year] = parts;
-        const fullYear = year.length === 2 ? `20${year}` : year;
-        parsedDate = new Date(`${month}/${day}/${fullYear}`);
-      }
-    }
-    
-    // If still failed, try adding current year to formats like "Jan 23"
+    // If that fails, try with current year for formats like "Jan 23"
     if (isNaN(parsedDate)) {
       const currentYear = new Date().getFullYear();
       parsedDate = new Date(`${rawDate} ${currentYear}`);
+    }
+    
+    // If still failed, try manual parsing for MM/DD/YY format
+    if (isNaN(parsedDate)) {
+      const parts = rawDate.split('/');
+      if (parts.length === 3) {
+        let [month, day, year] = parts;
+        
+        // Fix 2-digit year logic
+        if (year.length === 2) {
+          const yearNum = parseInt(year);
+          // If year is 00-30, assume 2000s, if 31-99, assume 1900s
+          if (yearNum <= 30) {
+            year = `20${year}`;
+          } else {
+            year = `19${year}`;
+          }
+        }
+        
+        parsedDate = new Date(`${month}/${day}/${year}`);
+        console.log('Parsed with year logic:', parsedDate); // Debug log
+      }
     }
 
     if (isNaN(parsedDate)) {
@@ -39,15 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Format to MM/DD/YY
-    const formatted = (parsedDate.getMonth() + 1).toString().padStart(2, '0') + 
-                     '/' + parsedDate.getDate().toString().padStart(2, '0') + 
-                     '/' + parsedDate.getFullYear().toString().slice(-2);
+    // Format to MM/DD/YY with correct year calculation
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const year = parsedDate.getFullYear();
+    
+    // Get last 2 digits of year correctly
+    const yearShort = year.toString().slice(-2);
+    
+    const formatted = `${month}/${day}/${yearShort}`;
 
     // Update the date element
     dateElement.textContent = formatted;
     dateElement.setAttribute("datetime", parsedDate.toISOString());
     
-    console.log(`Blog date updated: ${rawDate} → ${formatted}`);
+    console.log(`Blog date updated: ${rawDate} → ${formatted} (full year: ${year})`);
   });
 });
