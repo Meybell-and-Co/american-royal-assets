@@ -101,3 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
   console.log('=== AR DATES COMPLETE ===');
 });
+
+/* Hide dates on individual blog posts */
+.blog-item time.dt-published,
+.blog-item .blog-meta-item--date,
+.blog-item-author-date-wrapper time {
+  display: none;
+}
