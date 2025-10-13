@@ -38,15 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let rawDate;
     
     // For individual posts, ALWAYS prefer text content if it looks like MM/DD/YY
-    if (isIndividualPost && textContent.match(/^\d{2}\/\d{2}\/\d{2}$/)) {
-      console.log('Individual post: Using text content');
+    // Fixed regex to match the actual format (allows for 1-2 digits)
+    if (isIndividualPost && textContent.match(/^\d{1,2}\/\d{1,2}\/\d{2}$/)) {
+      console.log('Individual post: Using text content (matched MM/DD/YY pattern)');
       rawDate = textContent;
     } else if (datetimeAttr) {
       const datetimeDate = new Date(datetimeAttr);
       const datetimeYear = datetimeDate.getFullYear();
       
       // If datetime year is obviously wrong, use text content
-      if (datetimeYear < 2010 && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
+      if (datetimeYear < 2010 && textContent.match(/\d{1,2}\/\d{1,2}\/\d{2}/)) {
         console.log('Bad datetime year, using text content');
         rawDate = textContent;
       } else {
