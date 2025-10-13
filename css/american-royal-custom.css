@@ -183,7 +183,8 @@ time.blog-date,
 .blog-basic-grid .blog-title,
 .blog-title,
 h1.blog-item-title,
-h2.blog-item-title {
+h2.blog-item-title,
+h3.blog-item-title {
   color: white !important;
   font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
   font-weight: 700 !important; /* Bold */
