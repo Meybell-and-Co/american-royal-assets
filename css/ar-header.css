@@ -224,31 +224,21 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 
 /* ---------- Desktop: floating CTA ---------- */
 @media (min-width:1025px){
-  .ar-header{ position: relative; }
-
-  /* Remove CTA links from normal nav flow */
+  /* Remove CTA from navigation flow entirely */
+  .ar-header .header-nav-list .header-nav-item:has(a[href*="contribute"]),
+  .ar-header .header-nav-list .header-nav-item:has(a[href*="donate"]),
+  .ar-header .header-nav-list .header-nav-item:has(a[href*="donorbox"]){
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+  }
+  
+  /* Style the floating CTA button */
   .ar-header nav.header-nav-list a[href*="contribute"],
   .ar-header nav.header-nav-list a[href*="donate"], 
   .ar-header nav.header-nav-list a[href*="donorbox"]{
-    position: absolute;
-    right: 4rem;
-    top: 2.5rem;
-    z-index: 5;
-    
-    /* Remove from flex layout */
-    display: none;
-  }
-  
-  /* Create floating version */
-  .ar-header nav.header-nav-list a[href*="contribute"]::after,
-  .ar-header nav.header-nav-list a[href*="donate"]::after,
-  .ar-header nav.header-nav-list a[href*="donorbox"]::after{
-    content: attr(data-text);
-    position: fixed;
-    right: 4rem;
-    top: 2.5rem;
-    z-index: 1000;
-    
     background: var(--ar-red) !important;
     color: #fff !important;
     font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
