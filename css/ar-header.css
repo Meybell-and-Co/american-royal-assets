@@ -6,18 +6,18 @@
 
 /* Tokens */
 :root{
-  --ar-navy:#002D6A;
-  --ar-sky:#92B8E2;
-  --ar-offwhite:#F7F6FB;
-  --ar-cta:#BE3526;
-  --ar-fg:#fff;
-  --ar-cta-dark: #BE3526;
+  --ar-blue:#002D6A;
+  --ar-powder-blue:#92B8E2;
+  --ar-polar:#F7F6FB;
+  --ar-red:#BE3526;
+  --ar-pure-white:#fff;
+  --ar-red: #BE3526;
   }
 
 /* Skin */
 .ar-header{
-  background:var(--ar-navy);
-  color:var(--ar-fg);
+  background:var(--ar-blue);
+  color:var(--ar-pure-white);
   position:relative;
 }
 
@@ -27,7 +27,7 @@
 .ar-header .header-nav-folder-title-text{
   font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   font-weight:200 !important;
-  color:var(--ar-fg);
+  color:var(--ar-pure-white);
   letter-spacing:.01em;
   line-height:1.2;
   text-decoration:none;
@@ -137,7 +137,7 @@
     content:"";
     position:absolute; left:0; right:0; bottom:0;
     height:clamp(60px,5.5vw,120px);
-    background:var(--ar-navy);
+    background:var(--ar-blue);
     opacity:1; pointer-events:none; z-index:1;
   }
   .ar-header nav.header-nav{
@@ -151,7 +151,7 @@
 .ar-header .header-nav-folder-item a,
 .ar-header .header-nav-folder-item a span,
 .ar-header .header-nav-folder-item .header-nav-folder-item-content{
-  color:var(--ar-offwhite) !important;
+  color:var(--ar-polar) !important;
 }
 
 /* Hover: no underline + gentle zoom */
@@ -182,7 +182,7 @@
   .ar-header .header-nav{ overflow:visible !important; }
   .ar-header .header-nav-folder-content{
     position:relative; z-index:1000 !important;
-    background:var(--ar-navy) !important;
+    background:var(--ar-blue) !important;
     border:0 !important; box-shadow:none !important;
   }
 }
@@ -226,39 +226,50 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 @media (min-width:1025px){
   .ar-header{ position: relative; }
 
+  /* Remove CTA links from normal nav flow */
   .ar-header nav.header-nav-list a[href*="contribute"],
-  .ar-header nav.header-nav-list a[href*="donate"],
-  .ar-header nav.header-nav-list a[href*="donorbox"],
-  .ar-header [data-animation-role="header-element"][href*="contribute"],
-  .ar-header [data-animation-role="header-element"][href*="donate"],
-  .ar-header [data-animation-role="header-element"][href*="donorbox"]{
+  .ar-header nav.header-nav-list a[href*="donate"], 
+  .ar-header nav.header-nav-list a[href*="donorbox"]{
     position: absolute;
-    right: 4rem;              /* distance from right edge – tweak this */
-    top: 2.5rem;                /* distance from top edge – tweak this */
+    right: 4rem;
+    top: 2.5rem;
     z-index: 5;
-
-    background: var(--ar-cta) !important;
+    
+    /* Remove from flex layout */
+    display: none;
+  }
+  
+  /* Create floating version */
+  .ar-header nav.header-nav-list a[href*="contribute"]::after,
+  .ar-header nav.header-nav-list a[href*="donate"]::after,
+  .ar-header nav.header-nav-list a[href*="donorbox"]::after{
+    content: attr(data-text);
+    position: fixed;
+    right: 4rem;
+    top: 2.5rem;
+    z-index: 1000;
+    
+    background: var(--ar-red) !important;
     color: #fff !important;
     font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     font-weight: 700;
-    font-size: 1.6rem;                /* ~60% larger */
+    font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: .04em;
     
-    padding: 0.5em 1.6em !important;    /* scale padding */
+    padding: 0.5em 1.6em !important;
     border-radius: 9999px !important;
     line-height: 1;
     white-space: nowrap;
-    display: inline-flex !important; align-items: center; justify-content: center;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
     text-decoration: none !important;
     
     box-shadow: 0 2px 0 rgba(0,0,0,.18);
-    transition:
-      transform .32s cubic-bezier(.4,0,.2,1),
-      box-shadow .32s cubic-bezier(.4,0,.2,1),
-      background-color .2s ease,
-      font-size .2s cubic-bezier(.4,0,.2,1);
+    transition: transform .32s cubic-bezier(.4,0,.2,1), box-shadow .32s cubic-bezier(.4,0,.2,1), background-color .2s ease, font-size .2s cubic-bezier(.4,0,.2,1);
   }
+}
 
 /* Hover: enlarge + keep red background */
 .ar-header nav.header-nav-list a[href*="contribute"]:hover,
@@ -267,7 +278,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 .ar-header [data-animation-role="header-element"][href*="contribute"]:hover,
 .ar-header [data-animation-role="header-element"][href*="donate"]:hover,
 .ar-header [data-animation-role="header-element"][href*="donorbox"]:hover{
-  background: var(--ar-cta-dark) !important; /* stay red */
+  background: var(--ar-red) !important; /* stay red */
   color: #fff !important;                   /* force text white */
   font-size: 1.75rem;
   transform: scale(1.08);
@@ -281,7 +292,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 .ar-header [data-animation-role="header-element"][href*="contribute"]:active,
 .ar-header [data-animation-role="header-element"][href*="donate"]:active,
 .ar-header [data-animation-role="header-element"][href*="donorbox"]:active{
-  background: var(--ar-cta) !important;  /* lock back to base red */
+  background: var(--ar-red) !important;  /* lock back to base red */
   color: #fff !important;
   transform: scale(1);
   box-shadow: 0 1px 0 rgba(0,0,0,.18);
@@ -290,7 +301,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
   .ar-header nav.header-nav-list a[href*="contribute"]:focus-visible,
   .ar-header nav.header-nav-list a[href*="donate"]:focus-visible,
   .ar-header nav.header-nav-list a[href*="donorbox"]:focus-visible{
-    outline: 2px solid var(--ar-sky);
+    outline: 2px solid var(--ar-powder-blue);
     outline-offset: 3px;
     border-radius: 9999px;
   }
@@ -301,7 +312,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
   .sqs-mobile-nav .header-menu-nav a[href*="contribute"],
   .sqs-mobile-nav .header-menu-nav a[href*="donate"],
   .sqs-mobile-nav .header-menu-nav a[href*="donorbox"]{
-    background: var(--ar-cta) !important;
+    background: var(--ar-red) !important;
     color: #fff !important;
     border-radius: .7rem !important;
     padding: 1.2rem 1.4rem !important;
