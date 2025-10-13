@@ -8,32 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Detect if we're on an individual blog post page vs grid/list page
-  const isIndividualPost = document.querySelector('.blog-item-wrapper, .entry-header, article.blog-item') !== null || 
+  // Enhanced detection for individual blog post pages
+  const isIndividualPost = document.querySelector('.blog-item-wrapper, .entry-header, article.blog-item, .blog-item-content, .blog-meta-item') !== null || 
                           window.location.pathname.includes('/blog/') || 
-                          document.body.classList.contains('blog-item');
+                          document.body.classList.contains('blog-item') ||
+                          document.querySelector('time.dt-published') !== null; // dt-published is typically only on individual posts
 
   console.log('Page type detected:', isIndividualPost ? 'Individual blog post' : 'Blog grid/list');
+  console.log('URL:', window.location.pathname);
 
   blogDateElements.forEach(dateElement => {
     // Get both datetime attribute and text content
     let datetimeAttr = dateElement.getAttribute('datetime');
     let textContent = dateElement.textContent.trim();
     
+    console.log('Processing element:', dateElement);
     console.log('Datetime attribute:', datetimeAttr);
     console.log('Text content:', textContent);
     
     let parsedDate;
     let rawDate;
     
-    // Check if datetime attribute has obviously wrong year (like 2001 for recent posts)
+    // More aggressive fallback for individual posts
     if (datetimeAttr) {
       const datetimeDate = new Date(datetimeAttr);
       const datetimeYear = datetimeDate.getFullYear();
       
-      // If datetime year is suspiciously old (before 2010), prefer text content
-      if (datetimeYear < 2010 && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
-        console.log('Datetime year seems wrong, using text content instead');
+      // If we're on an individual post OR datetime year is suspiciously old, prefer text content
+      if ((isIndividualPost || datetimeYear < 2010) && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
+        console.log('Using text content instead of datetime attribute');
         rawDate = textContent;
       } else {
         rawDate = datetimeAttr;
