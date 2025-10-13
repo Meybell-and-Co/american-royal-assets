@@ -2,13 +2,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log('=== AR DATES SIMPLE VERSION ===');
   
-  // Target individual blog post dates specifically
-  const blogDateElements = document.querySelectorAll('time.dt-published, time.blog-meta-item');
+  // Target both blog grid dates AND individual blog post dates
+  const blogDateElements = document.querySelectorAll('time.blog-date, time.dt-published, .blog-meta-item--date');
   
-  console.log('Found individual post date elements:', blogDateElements.length);
+  console.log('Found date elements:', blogDateElements.length);
   
   if (blogDateElements.length === 0) {
-    console.log("No individual post date elements found - probably on grid page");
+    console.log("No date elements found - exiting");
     return;
   }
 
