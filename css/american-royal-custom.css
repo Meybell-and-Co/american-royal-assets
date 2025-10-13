@@ -118,3 +118,38 @@ footer h4,
 footer p {
   margin-bottom: 0.3em !important;
 }
+
+/* =============================== */
+/* Blog Style Overrides */
+/* =============================== */
+/* Shrinks hero image height on blog posts */
+.blog-item .sqs-image {
+  max-height: 400px;
+  object-fit: cover;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 640px) {
+  .blog-item .sqs-image {
+    max-height: 200px;
+  }
+}
+
+/* Overrides Squarespace inline styles on blog body copy */
+.blog-item-content .sqs-block-html p[style] {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  white-space: normal;
+}
+
+/* Applies margin fix to the overall content container on mobile */
+@media screen and (max-width: 640px) {
+  .blog-item-content .sqs-block-html {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
