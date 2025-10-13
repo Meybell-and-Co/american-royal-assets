@@ -271,9 +271,9 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
   background: var(--ar-red) !important; /* stay red */
   color: #fff !important;                   /* force text white */
   font-weight: 700 !important;  /* Ensure bold on hover */
-  font-size: 1.75rem;
-  transform: scale(1.08);
-  box-shadow: 0 4px 10px rgba(0,0,0,.22);
+  font-size: 1.65rem;           /* Reduced from 1.75rem */
+  transform: scale(1.03);       /* Reduced from scale(1.08) */
+  box-shadow: 0 3px 8px rgba(0,0,0,.18); /* Reduced shadow */
 }
 
 /* Active: pressed state, still solid red */
