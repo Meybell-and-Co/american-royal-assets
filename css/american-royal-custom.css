@@ -14,33 +14,6 @@
 }
 
 /* =============================== */
-/* Keyframe Animations */
-/* =============================== */
-@keyframes slideDownFade {
-  0% { transform: translateY(-20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes slideFadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* =============================== */
-/* Dropdown Staggered Animation */
-/* =============================== */
-.ar-header .header-nav-folder-content > .header-nav-folder-item {
-  animation: ar-slideFadeIn .4s ease forwards; /* use your namespaced keyframes */
-  opacity: 0;
-}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(1){animation-delay:.1s}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(2){animation-delay:.2s}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(3){animation-delay:.3s}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(4){animation-delay:.4s}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(5){animation-delay:.5s}
-.ar-header .header-nav-folder-content > .header-nav-folder-item:nth-child(6){animation-delay:.6s}
-
-/* =============================== */
 /* Header Background Styling */
 /* =============================== */
 /* Failsafe: applies the photo background if the .ar-header.css isn't read */
@@ -92,51 +65,6 @@
   justify-content: center;
   height: 100%;
   padding-top: 1.5rem;
-}
-
-/* =============================== */
-/* CONTRIBUTE Button Styling */
-/* =============================== */
-.header-nav-item a[href*="contribute"] {
-  background-color: #BE3526;
-  color: #F7F6FB !important;
-  font-family: 'Veneer', sans-serif !important;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 0.4em 1.2em;
-  line-height: 1;
-  border-radius: 0 !important;
-  text-decoration: none !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  box-shadow: none !important;
-  transition: all 0.2s ease;
-  min-height: 44px;
-}
-
-.header-nav-item a[href*="contribute"]:hover {
-  transform: translateY(-2px);
-  background-color: #A62D23;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-}
-
-.header-nav-item a[href*="contribute"]:active,
-.header-nav-item a[href*="contribute"]:focus {
-  transform: scale(0.96);
-  text-decoration: none !important;
-  border-bottom: none !important;
-  outline: none !important;
-}
-
-.header-nav-item--active a[href*="contribute"] {
-  background-image: none !important;
-  background-position: initial !important;
-  background-repeat: no-repeat !important;
-  box-shadow: none !important;
 }
 
 /* =============================== */
