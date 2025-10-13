@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(`\n--- Processing element ${index} ---`);
     
     let textContent = dateElement.textContent.trim();
+    let datetimeAttr = dateElement.getAttribute('datetime');
     console.log('Original text:', textContent);
+    console.log('Datetime attr:', datetimeAttr);
     
     let parsedDate;
     
@@ -44,11 +46,41 @@ document.addEventListener("DOMContentLoaded", () => {
       parsedDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
       dateElement.setAttribute("datetime", parsedDate.toISOString());
     }
-    // If it's in "Month Day" format, add current year
+    // If it's in "Month Day" format, try to get the year from datetime attribute
     else if (textContent.match(/^[A-Za-z]+ \d{1,2}$/)) {
       console.log('Found "Month Day" format');
-      const currentYear = new Date().getFullYear();
-      const fullDate = `${textContent} ${currentYear}`;
+      
+      let yearToUse;
+      
+      // Try to extract year from datetime attribute if available
+      if (datetimeAttr) {
+        const datetimeDate = new Date(datetimeAttr);
+        if (!isNaN(datetimeDate)) {
+          yearToUse = datetimeDate.getFullYear();
+          console.log('Using year from datetime attribute:', yearToUse);
+          
+          // But if the datetime year is obviously wrong (like 2001), use a smart guess
+          if (yearToUse < 2010) {
+            // Try to guess based on the month - if it's a future month, probably last year
+            const textDate = new Date(`${textContent} 2023`); // Try 2023 first
+            const now = new Date();
+            
+            if (textDate > now) {
+              yearToUse = 2022; // If future date, probably from previous year
+            } else {
+              yearToUse = 2023; // Otherwise use 2023
+            }
+            console.log('Datetime year seemed wrong, guessing:', yearToUse);
+          }
+        } else {
+          yearToUse = 2023; // Fallback
+        }
+      } else {
+        yearToUse = 2023; // Default fallback
+      }
+      
+      const fullDate = `${textContent} ${yearToUse}`;
+      console.log('Trying to parse:', fullDate);
       
       // Parse and reformat to MM/DD/YYYY
       parsedDate = new Date(fullDate);
