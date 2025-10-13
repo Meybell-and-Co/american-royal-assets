@@ -297,7 +297,6 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
     outline-offset: 3px;
     border-radius: 9999px;
   }
-}
 
 /* ---------- Mobile: drawer button ---------- */
 @media (max-width:1024px){
