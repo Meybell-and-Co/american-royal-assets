@@ -9,12 +9,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   blogDateElements.forEach(dateElement => {
-    // Get the datetime attribute first (more reliable than text content)
-    let rawDate = dateElement.getAttribute('datetime') || dateElement.textContent.trim();
+    // Get both datetime attribute and text content
+    let datetimeAttr = dateElement.getAttribute('datetime');
+    let textContent = dateElement.textContent.trim();
     
-    console.log('Original date:', rawDate); // Debug log
+    console.log('Datetime attribute:', datetimeAttr);
+    console.log('Text content:', textContent);
     
     let parsedDate;
+    let rawDate;
+    
+    // Check if datetime attribute has obviously wrong year (like 2001 for recent posts)
+    if (datetimeAttr) {
+      const datetimeDate = new Date(datetimeAttr);
+      const datetimeYear = datetimeDate.getFullYear();
+      
+      // If datetime year is suspiciously old (before 2010), prefer text content
+      if (datetimeYear < 2010 && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
+        console.log('Datetime year seems wrong, using text content instead');
+        rawDate = textContent;
+      } else {
+        rawDate = datetimeAttr;
+      }
+    } else {
+      rawDate = textContent;
+    }
+    
+    console.log('Using date source:', rawDate);
     
     // First try: Parse as ISO string or standard date format
     parsedDate = new Date(rawDate);
@@ -38,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Create date using YYYY-MM-DD format for better parsing
         parsedDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
-        console.log('Parsed with manual logic:', parsedDate); // Debug log
+        console.log('Parsed with manual logic:', parsedDate);
       }
     }
     
@@ -65,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update the date element
     dateElement.textContent = formatted;
+    // Set the correct datetime attribute
     dateElement.setAttribute("datetime", parsedDate.toISOString());
     
     console.log(`Blog date updated: ${rawDate} → ${formatted} (full year: ${year})`);
