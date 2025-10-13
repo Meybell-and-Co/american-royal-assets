@@ -6,12 +6,13 @@
 
 /* Tokens */
 :root{
+  --ar-red: #89211B;
+  --ar-orange:#BE3526;
   --ar-blue:#002D6A;
   --ar-powder-blue:#92B8E2;
   --ar-polar:#F7F6FB;
-  --ar-red:#BE3526;
   --ar-pure-white:#fff;
-  --ar-red: #BE3526;
+  
   }
 
 /* Skin */
