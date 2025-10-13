@@ -1,65 +1,80 @@
 // @ts-check
 document.addEventListener("DOMContentLoaded", () => {
+  console.log('=== AR DATES DEBUG START ===');
+  console.log('URL:', window.location.href);
+  
   // Target both blog grid dates AND individual blog post dates
-  const blogDateElements = document.querySelectorAll('time.blog-date, time.dt-published, .blog-meta-item--date');
+  const blogDateElements = document.querySelectorAll('time.blog-date, time.dt-published, .blog-meta-item--date, time.blog-meta-item');
+  
+  console.log('Found date elements:', blogDateElements.length);
+  blogDateElements.forEach((el, i) => {
+    console.log(`Element ${i}:`, el.outerHTML);
+  });
   
   if (blogDateElements.length === 0) {
     console.warn("Blog date elements not found.");
     return;
   }
 
-  // Enhanced detection for individual blog post pages
-  const isIndividualPost = document.querySelector('.blog-item-wrapper, .entry-header, article.blog-item, .blog-item-content, .blog-meta-item') !== null || 
-                          window.location.pathname.includes('/blog/') || 
-                          document.body.classList.contains('blog-item') ||
-                          document.querySelector('time.dt-published') !== null; // dt-published is typically only on individual posts
+  // Detect individual post by checking for specific classes in the HTML
+  const isIndividualPost = document.querySelector('.blog-item-content') !== null || 
+                          document.querySelector('time.dt-published') !== null ||
+                          document.querySelector('.blog-item-author-date-wrapper') !== null;
 
-  console.log('Page type detected:', isIndividualPost ? 'Individual blog post' : 'Blog grid/list');
-  console.log('URL:', window.location.pathname);
+  console.log('Individual post detected:', isIndividualPost);
 
-  blogDateElements.forEach(dateElement => {
+  blogDateElements.forEach((dateElement, index) => {
+    console.log(`\n--- Processing element ${index} ---`);
+    
     // Get both datetime attribute and text content
     let datetimeAttr = dateElement.getAttribute('datetime');
     let textContent = dateElement.textContent.trim();
     
-    console.log('Processing element:', dateElement);
+    console.log('Element classes:', dateElement.className);
     console.log('Datetime attribute:', datetimeAttr);
     console.log('Text content:', textContent);
     
     let parsedDate;
     let rawDate;
     
-    // More aggressive fallback for individual posts
-    if (datetimeAttr) {
+    // For individual posts, ALWAYS prefer text content if it looks like MM/DD/YY
+    if (isIndividualPost && textContent.match(/^\d{2}\/\d{2}\/\d{2}$/)) {
+      console.log('Individual post: Using text content');
+      rawDate = textContent;
+    } else if (datetimeAttr) {
       const datetimeDate = new Date(datetimeAttr);
       const datetimeYear = datetimeDate.getFullYear();
       
-      // If we're on an individual post OR datetime year is suspiciously old, prefer text content
-      if ((isIndividualPost || datetimeYear < 2010) && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
-        console.log('Using text content instead of datetime attribute');
+      // If datetime year is obviously wrong, use text content
+      if (datetimeYear < 2010 && textContent.match(/\d{2}\/\d{2}\/\d{2}/)) {
+        console.log('Bad datetime year, using text content');
         rawDate = textContent;
       } else {
+        console.log('Using datetime attribute');
         rawDate = datetimeAttr;
       }
     } else {
+      console.log('No datetime attr, using text content');
       rawDate = textContent;
     }
     
-    console.log('Using date source:', rawDate);
+    console.log('Selected date source:', rawDate);
     
-    // First try: Parse as ISO string or standard date format
+    // Parse the date
     parsedDate = new Date(rawDate);
     
-    // If that fails, try manual parsing for MM/DD/YY or MM/DD/YYYY format
-    if (isNaN(parsedDate)) {
+    // If that fails, try manual parsing for MM/DD/YY format
+    if (isNaN(parsedDate) && rawDate.includes('/')) {
       const parts = rawDate.split('/');
       if (parts.length === 3) {
         let [month, day, year] = parts.map(p => p.trim());
         
-        // Fix 2-digit year logic - be more specific about the cutoff
+        console.log('Manual parsing:', { month, day, year });
+        
+        // Handle 2-digit years
         if (year.length === 2) {
           const yearNum = parseInt(year);
-          // Years 00-25 are 2000s, 26-99 are 1900s (adjust cutoff as needed)
+          // Years 00-25 are 2000s, 26-99 are 1900s
           if (yearNum <= 25) {
             year = `20${year}`;
           } else {
@@ -67,24 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
         
-        // Create date using YYYY-MM-DD format for better parsing
+        console.log('Converted year:', year);
+        
+        // Create date
         parsedDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
-        console.log('Parsed with manual logic:', parsedDate);
+        console.log('Manually parsed date:', parsedDate);
       }
-    }
-    
-    // Try with current year for formats like "Jan 23"
-    if (isNaN(parsedDate)) {
-      const currentYear = new Date().getFullYear();
-      parsedDate = new Date(`${rawDate} ${currentYear}`);
     }
 
     if (isNaN(parsedDate)) {
-      console.warn("Invalid blog date format:", rawDate);
+      console.error("Could not parse date:", rawDate);
       return;
     }
 
-    // Format the date based on page type
+    // Format the date
     const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const day = parsedDate.getDate().toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
@@ -93,17 +104,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isIndividualPost) {
       // Use full 4-digit year on individual blog posts
       formatted = `${month}/${day}/${year}`;
+      console.log('Individual post format (YYYY):', formatted);
     } else {
       // Use 2-digit year on grid/list pages
       const yearShort = year.toString().slice(-2);
       formatted = `${month}/${day}/${yearShort}`;
+      console.log('Grid format (YY):', formatted);
     }
 
     // Update the date element
+    console.log('Updating element from:', dateElement.textContent, 'to:', formatted);
     dateElement.textContent = formatted;
-    // Set the correct datetime attribute
     dateElement.setAttribute("datetime", parsedDate.toISOString());
     
-    console.log(`Blog date updated: ${rawDate} → ${formatted} (full year: ${year})`);
+    console.log('Final result:', dateElement.textContent);
   });
+  
+  console.log('=== AR DATES DEBUG END ===');
 });
