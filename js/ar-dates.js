@@ -16,35 +16,36 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let parsedDate;
     
-    // Try parsing the datetime attribute or text content
+    // First try: Parse as ISO string or standard date format
     parsedDate = new Date(rawDate);
     
-    // If that fails, try with current year for formats like "Jan 23"
-    if (isNaN(parsedDate)) {
-      const currentYear = new Date().getFullYear();
-      parsedDate = new Date(`${rawDate} ${currentYear}`);
-    }
-    
-    // If still failed, try manual parsing for MM/DD/YY format
+    // If that fails, try manual parsing for MM/DD/YY or MM/DD/YYYY format
     if (isNaN(parsedDate)) {
       const parts = rawDate.split('/');
       if (parts.length === 3) {
-        let [month, day, year] = parts;
+        let [month, day, year] = parts.map(p => p.trim());
         
-        // Fix 2-digit year logic
+        // Fix 2-digit year logic - be more specific about the cutoff
         if (year.length === 2) {
           const yearNum = parseInt(year);
-          // If year is 00-30, assume 2000s, if 31-99, assume 1900s
-          if (yearNum <= 30) {
+          // Years 00-25 are 2000s, 26-99 are 1900s (adjust cutoff as needed)
+          if (yearNum <= 25) {
             year = `20${year}`;
           } else {
             year = `19${year}`;
           }
         }
         
-        parsedDate = new Date(`${month}/${day}/${year}`);
-        console.log('Parsed with year logic:', parsedDate); // Debug log
+        // Create date using YYYY-MM-DD format for better parsing
+        parsedDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+        console.log('Parsed with manual logic:', parsedDate); // Debug log
       }
+    }
+    
+    // Try with current year for formats like "Jan 23"
+    if (isNaN(parsedDate)) {
+      const currentYear = new Date().getFullYear();
+      parsedDate = new Date(`${rawDate} ${currentYear}`);
     }
 
     if (isNaN(parsedDate)) {
