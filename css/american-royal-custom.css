@@ -192,14 +192,32 @@ h3.blog-item-title {
   line-height: 1.2 !important;
 }
 
-/* Also target blog titles in grid/list views */
-.blog-basic-grid .blog-item-title a,
-.blog-list .blog-item-title a,
-.blog-item-title a {
+/* Super specific blog title targeting */
+body .blog-item-title,
+body .blog-item .blog-item-title,
+body .blog-basic-grid .blog-title,
+body .blog-title,
+body h1.blog-item-title,
+body h2.blog-item-title,
+body h3.blog-item-title,
+.blog-basic-grid-container .blog-item-title,
+.blog-basic-grid-container .blog-title {
   color: white !important;
   font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
   font-weight: 700 !important;
   text-transform: capitalize !important;
+  line-height: 1.2 !important;
+}
+
+/* Target the actual link elements too */
+body .blog-item-title a,
+body .blog-title a,
+body h1.blog-item-title a,
+body h2.blog-item-title a,
+.blog-basic-grid-container .blog-item-title a,
+.blog-basic-grid-container .blog-title a {
+  color: white !important;
+  text-decoration: none !important;
 }
 
 /* Hover states for blog title links */
