@@ -345,3 +345,33 @@ section[style] {
 .collection-type-blog h3 {
   color: white !important;
 }
+
+/* =============================== */
+/* Individual Blog Post Date Styling */
+/* =============================== */
+/* Target the individual blog post date (different from blog grid dates) */
+.dt-published,
+time.dt-published,
+.blog-meta-item--date,
+.blog-meta-item.blog-meta-item--date {
+  font-family: 'Veneer', serif !important; /* Keep Veneer */
+  font-size: 1.4rem !important; /* Much larger - was way too small */
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 0.5rem !important;
+  display: inline-block !important;
+}
+
+/* Also target any wrapper elements */
+.blog-meta-item {
+  font-size: 1.4rem !important;
+}
+
+/* Ensure the date shows properly on individual blog posts */
+.collection-type-blog-basic-grid .dt-published,
+.blog-item-wrapper .dt-published {
+  font-family: 'Veneer', serif !important;
+  font-size: 1.4rem !important;
+  color: white !important;
+}
