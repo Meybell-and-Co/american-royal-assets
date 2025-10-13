@@ -1,52 +1,53 @@
 // @ts-check
 document.addEventListener("DOMContentLoaded", () => {
-  // Target the actual blog date element instead of meta tag
-  const blogDateElement = document.querySelector('time.blog-date');
+  // Target both blog grid dates AND individual blog post dates
+  const blogDateElements = document.querySelectorAll('time.blog-date, time.dt-published, .blog-meta-item--date');
   
-  if (!blogDateElement) {
-    console.warn("Blog date element not found.");
+  if (blogDateElements.length === 0) {
+    console.warn("Blog date elements not found.");
     return;
   }
 
-  // Get the current date text (e.g., "5/30/25")
-  const rawDate = blogDateElement.textContent.trim();
-  
-  // Parse the date - handle different formats
-  let parsedDate;
-  
-  // Try parsing as-is first
-  parsedDate = new Date(rawDate);
-  
-  // If that fails, try with full year (assuming 20xx)
-  if (isNaN(parsedDate)) {
-    const parts = rawDate.split('/');
-    if (parts.length === 3) {
-      const [month, day, year] = parts;
-      const fullYear = year.length === 2 ? `20${year}` : year;
-      parsedDate = new Date(`${month}/${day}/${fullYear}`);
+  blogDateElements.forEach(dateElement => {
+    // Get the current date text (e.g., "Jan 23" or "5/30/25")
+    const rawDate = dateElement.textContent.trim();
+    
+    // Parse the date - handle different formats
+    let parsedDate;
+    
+    // Try parsing as-is first
+    parsedDate = new Date(rawDate);
+    
+    // If that fails, try with full year for short formats
+    if (isNaN(parsedDate)) {
+      const parts = rawDate.split('/');
+      if (parts.length === 3) {
+        const [month, day, year] = parts;
+        const fullYear = year.length === 2 ? `20${year}` : year;
+        parsedDate = new Date(`${month}/${day}/${fullYear}`);
+      }
     }
-  }
+    
+    // If still failed, try adding current year to formats like "Jan 23"
+    if (isNaN(parsedDate)) {
+      const currentYear = new Date().getFullYear();
+      parsedDate = new Date(`${rawDate} ${currentYear}`);
+    }
 
-  if (isNaN(parsedDate)) {
-    console.warn("Invalid blog date format:", rawDate);
-    return;
-  }
+    if (isNaN(parsedDate)) {
+      console.warn("Invalid blog date format:", rawDate);
+      return;
+    }
 
-  // Format the date nicely
-  const formatted = parsedDate.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
+    // Format to MM/DD/YY
+    const formatted = (parsedDate.getMonth() + 1).toString().padStart(2, '0') + 
+                     '/' + parsedDate.getDate().toString().padStart(2, '0') + 
+                     '/' + parsedDate.getFullYear().toString().slice(-2);
+
+    // Update the date element
+    dateElement.textContent = formatted;
+    dateElement.setAttribute("datetime", parsedDate.toISOString());
+    
+    console.log(`Blog date updated: ${rawDate} → ${formatted}`);
   });
-
-  // Update the blog date element
-  blogDateElement.textContent = formatted;
-  
-  // Also update any other date elements that might exist
-  document.querySelectorAll("time.dt-published").forEach(el => {
-    el.textContent = formatted;
-    el.setAttribute("datetime", parsedDate.toISOString());
-  });
-  
-  console.log(`Blog date updated: ${rawDate} → ${formatted}`);
 });
