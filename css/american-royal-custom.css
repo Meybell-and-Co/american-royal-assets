@@ -265,11 +265,11 @@ section[data-section-theme="black-bold"].page-section,
 /* Specifically target blog grid sections */
 section.page-section:has(.blog-basic-grid),
 section[data-section-theme="black-bold"]:has(.blog-basic-grid) {
-  padding-top: 1.3rem !important;
+  padding-top: 1.rem !important;
 }
 
 /* Alternative - target by collection type if above doesn't work */
 .collection-type-blog-grid .page-section,
 .view-list .page-section {
-  padding-top: 1.3rem !important;
+  padding-top: 1.rem !important;
 }
