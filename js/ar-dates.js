@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Detect if we're on an individual blog post page vs grid/list page
+  const isIndividualPost = document.querySelector('.blog-item-wrapper, .entry-header, article.blog-item') !== null || 
+                          window.location.pathname.includes('/blog/') || 
+                          document.body.classList.contains('blog-item');
+
+  console.log('Page type detected:', isIndividualPost ? 'Individual blog post' : 'Blog grid/list');
+
   blogDateElements.forEach(dateElement => {
     // Get both datetime attribute and text content
     let datetimeAttr = dateElement.getAttribute('datetime');
@@ -74,15 +81,20 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Format to MM/DD/YY with correct year calculation
+    // Format the date based on page type
     const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const day = parsedDate.getDate().toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
     
-    // Get last 2 digits of year correctly
-    const yearShort = year.toString().slice(-2);
-    
-    const formatted = `${month}/${day}/${yearShort}`;
+    let formatted;
+    if (isIndividualPost) {
+      // Use full 4-digit year on individual blog posts
+      formatted = `${month}/${day}/${year}`;
+    } else {
+      // Use 2-digit year on grid/list pages
+      const yearShort = year.toString().slice(-2);
+      formatted = `${month}/${day}/${yearShort}`;
+    }
 
     // Update the date element
     dateElement.textContent = formatted;
