@@ -2,8 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log('=== AR DATES SIMPLE VERSION ===');
   
-  // Target both blog grid dates AND individual blog post dates
-  const blogDateElements = document.querySelectorAll('time.blog-date, time.dt-published, .blog-meta-item--date');
+  // Target blog grid dates only
+  const blogDateElements = document.querySelectorAll('time.blog-date');
   
   console.log('Found date elements:', blogDateElements.length);
   
