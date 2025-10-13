@@ -207,7 +207,7 @@ body h3.blog-item-title,
   font-weight: 700 !important;
   text-transform: capitalize !important;
   line-height: 1.2 !important;
-  font-size: 0.9em !important; /* Reduced from default */
+  font-size: 1.15em !important; /* Reduced from default */
 }
 
 /* Target the actual link elements too */
