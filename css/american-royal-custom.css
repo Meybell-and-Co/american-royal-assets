@@ -252,3 +252,24 @@ a.blog-more-link {
 .blog-more-link:hover {
   color: rgba(255, 255, 255, 0.8) !important;
 }
+
+/* =============================== */
+/* Blog Section Gap Fix */
+/* =============================== */
+/* Remove excessive padding from blog sections */
+section[data-section-theme="black-bold"].page-section,
+.page-section[data-test="page-section"] {
+  padding-top: 2rem !important; /* Much smaller gap */
+}
+
+/* Specifically target blog grid sections */
+section.page-section:has(.blog-basic-grid),
+section[data-section-theme="black-bold"]:has(.blog-basic-grid) {
+  padding-top: 1.5rem !important;
+}
+
+/* Alternative - target by collection type if above doesn't work */
+.collection-type-blog-grid .page-section,
+.view-list .page-section {
+  padding-top: 1.5rem !important;
+}
