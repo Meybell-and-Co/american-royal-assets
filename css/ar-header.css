@@ -130,7 +130,7 @@
   }
 }
 
-/* Navy band at bottom of header (desktop) */
+/* AR Blue band at bottom of header (desktop) */
 @media (min-width:1025px){
   .ar-header .header-inner{ position:relative; z-index:0; }
   .ar-header .header-inner::before{
@@ -241,8 +241,8 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
   .ar-header nav.header-nav-list a[href*="donorbox"]{
     background: var(--ar-red) !important;
     color: #fff !important;
-    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    font-weight: 700;
+    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+    font-weight: 700 !important;  /* Added !important for bold */
     font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: .04em;
@@ -270,6 +270,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 .ar-header [data-animation-role="header-element"][href*="donorbox"]:hover{
   background: var(--ar-red) !important; /* stay red */
   color: #fff !important;                   /* force text white */
+  font-weight: 700 !important;  /* Ensure bold on hover */
   font-size: 1.75rem;
   transform: scale(1.08);
   box-shadow: 0 4px 10px rgba(0,0,0,.22);
@@ -284,6 +285,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
 .ar-header [data-animation-role="header-element"][href*="donorbox"]:active{
   background: var(--ar-red) !important;  /* lock back to base red */
   color: #fff !important;
+  font-weight: 700 !important;  /* Ensure bold on active */
   transform: scale(1);
   box-shadow: 0 1px 0 rgba(0,0,0,.18);
 }
@@ -306,7 +308,7 @@ div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
     color: #fff !important;
     border-radius: .7rem !important;
     padding: 1.2rem 1.4rem !important;
-    font-weight: 700;
+    font-weight: 700 !important;  /* Added !important for mobile bold */
     font-size: 1.3rem;
     line-height: 1;
   }
