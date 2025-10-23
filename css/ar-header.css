@@ -1,7 +1,7 @@
 /* ===========================================
-   AMERICAN ROYAL • Header UI (namespaced)
-   Requires: Outfit via <link rel="preconnect" …>
-   Wrapper: Add class="ar-header" to the header container
+   American Royal on the Rise Header
+   Meybell & Co. for American Royal
+   Inquiries to Mark Meybell
    =========================================== */
 
 /* Tokens */
@@ -211,7 +211,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 0 !important;
 }
 
-div[data-controllers-bound="SectionWrapperController"][style*="padding-top"] {
+div[data-controllers-bound="SectionWrapperControllerdcfsx xvcASz    "][style*="padding-top"] {
   padding-top: 0 !important;
 }
 
